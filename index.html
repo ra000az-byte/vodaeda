@@ -112,8 +112,7 @@ nav span{display:block;font-size:22px}
 <section class="tab" id="t-set">
   <h1>Настройки</h1>
   <div class="card">
-    <label for="skey">Ключ OpenAI API (хранится только на этом телефоне)</label>
-    <input id="skey" type="password" placeholder="sk-..." autocomplete="off" autocapitalize="off">
+    <div class="msg in">Распознавание еды работает через защищённый сервер. API-ключ хранится на сервере и здесь не требуется.</div>
     <label for="smodel">Модель</label>
     <input id="smodel" placeholder="gpt-4o-mini" autocapitalize="off">
     <label for="sgw">Норма воды, мл</label>
@@ -226,26 +225,35 @@ const PROMPT=`Ты нутрициолог. Определи еду на фото
 
 async function scan(file){
   $('#result').innerHTML='';
-  if(!D.set.key){setStatus('Сначала добавьте ключ OpenAI во вкладке «Настройки».','er');return}
   if(!navigator.onLine){setStatus('Нет интернета. Для распознавания он нужен.','er');return}
   try{
     setStatus('Сжимаю фото…');
     const img=await shrink(file);
-    setStatus('Распознаю еду…');
-    const r=await fetch('https://api.openai.com/v1/chat/completions',{
+    setStatus('Отправляю фото на защищённый сервер и распознаю еду…');
+    const r=await fetch('https://vodaeda-api.ra000az.workers.dev/analyze',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+D.set.key.trim()},
-      body:JSON.stringify({model:D.set.model||'gpt-4o-mini',response_format:{type:'json_object'},
-        messages:[{role:'user',content:[{type:'text',text:PROMPT},{type:'image_url',image_url:{url:img,detail:'low'}}]}]})
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({imageDataUrl:img})
     });
-    if(r.status===401){setStatus('Неверный ключ OpenAI. Проверьте его в настройках.','er');return}
-    if(r.status===429){setStatus('Лимит или нет средств на счёте OpenAI API. Проверьте баланс на platform.openai.com.','er');return}
-    if(!r.ok){const t=await r.json().catch(()=>({}));setStatus('Ошибка OpenAI: '+(t.error?.message||r.status),'er');return}
-    const j=await r.json();
-    const p=JSON.parse(j.choices[0].message.content);
-    if(!p.items||!p.items.length){setStatus('Еда на фото не найдена. Попробуйте снять ближе и при хорошем свете.','er');return}
-    setStatus('');showResult(p);
-  }catch(e){setStatus('Не удалось распознать: '+e.message,'er')}
+    const data=await r.json().catch(()=>({}));
+    if(!r.ok){
+      const message=data.error||('Ошибка сервера: '+r.status);
+      setStatus(message,'er');
+      return;
+    }
+    if(!Array.isArray(data.items)){
+      setStatus('Сервер вернул ответ в неожиданном формате.','er');
+      return;
+    }
+    if(!data.items.length){
+      setStatus('Еда на фото не найдена. Попробуйте снять ближе и при хорошем свете.','er');
+      return;
+    }
+    setStatus('');
+    showResult(data);
+  }catch(e){
+    setStatus('Не удалось распознать: '+e.message,'er');
+  }
 }
 
 function showResult(p){
@@ -324,9 +332,9 @@ $('#kgadd').onclick=()=>{
 };
 
 // ---------- Настройки ----------
-function loadSet(){$('#skey').value=D.set.key;$('#smodel').value=D.set.model;$('#sgw').value=D.set.goalMl;$('#sgk').value=D.set.goalKcal;$('#skgs').value=fmt(D.set.wStart);$('#skgg').value=fmt(D.set.wGoal)}
+function loadSet(){$('#smodel').value=D.set.model;$('#sgw').value=D.set.goalMl;$('#sgk').value=D.set.goalKcal;$('#skgs').value=fmt(D.set.wStart);$('#skgg').value=fmt(D.set.wGoal)}
 $('#ssave').onclick=()=>{
-  D.set.key=$('#skey').value.trim();D.set.model=$('#smodel').value.trim()||'gpt-4o-mini';
+  D.set.model=$('#smodel').value.trim()||'gpt-4o-mini';
   D.set.goalMl=num($('#sgw').value)||2000;D.set.goalKcal=num($('#sgk').value)||2000;D.set.wStart=dec($('#skgs').value)||92;D.set.wGoal=dec($('#skgg').value)||82;
   save();renderWater();renderFood();renderWeight();$('#ssave').textContent='Сохранено ✓';setTimeout(()=>$('#ssave').textContent='Сохранить',1500);
 };
