@@ -149,6 +149,8 @@ const def={water:{},food:{},weight:[],set:{key:'',model:'gpt-4o-mini',goalMl:200
 let D;
 try{D=Object.assign({},def,JSON.parse(localStorage.getItem(KEY)||'{}'));D.set=Object.assign({},def.set,D.set)}catch(e){D=JSON.parse(JSON.stringify(def))}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}};
+// Старый ключ больше не нужен: запросы идут через защищённый Worker.
+if(D.set.key){D.set.key='';save()}
 const day=(d=new Date())=>d.toLocaleDateString('sv');
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const num=v=>Math.max(0,Math.round(parseFloat(v)||0));
