@@ -1,521 +1,80 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<title>Вода и еда</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Вода и еда">
-<meta name="theme-color" content="#f2f8fa">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-180.png">
+<!doctype html>
+<html lang="ru"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4fafb"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Вода и Еда">
+<title>Вода и Еда</title><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-180.png">
 <style>
-:root{--bg:#f3f7f8;--card:#fff;--tx:#12262f;--mut:#5f7782;--ac:#0a8fb8;--ac2:#e8590c;--ln:#d8e3e7;--ok:#2b9348;--er:#c92a2a}
-@media(prefers-color-scheme:dark){:root{--bg:#0b1c26;--card:#12303f;--tx:#e8f2f5;--mut:#8fb0bd;--ac:#4cc9f0;--ac2:#ff9f5a;--ln:#24465a;--ok:#5fd07c;--er:#ff7b7b}}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 -apple-system,system-ui,"Segoe UI",sans-serif}
-body{padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
-main{max-width:520px;margin:0 auto;padding:14px}
-h1{font-size:22px;margin:6px 0 14px}
-h2{font-size:17px;margin:20px 0 8px}
-.tab{display:none}.tab.on{display:block}
-.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:14px;margin-bottom:12px}
-button,select,input,textarea{font:inherit;color:var(--tx)}
-button{border:0;border-radius:14px;padding:14px;background:var(--ac);color:#04212c;font-weight:600;min-height:52px;width:100%}
-button.sec{background:transparent;border:1px solid var(--ln);color:var(--tx)}
-button.sm{min-height:36px;padding:6px 12px;width:auto;border-radius:10px}
-button:active{opacity:.7}
-input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--ln);border-radius:10px;padding:10px;min-height:44px}
-label{display:block;font-size:14px;color:var(--mut);margin:10px 0 4px}
-.row{display:flex;gap:8px}.row>*{flex:1}
-.ring{position:relative;width:200px;height:200px;margin:4px auto 12px}
-.ring svg{transform:rotate(-90deg)}
-.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ring b{font-size:34px}.mut{color:var(--mut);font-size:14px}
-.li{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--ln)}
-.li:first-child{border-top:0}
-.bar{height:8px;border-radius:4px;background:var(--ln);overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--ac)}
-.food i{background:var(--ac2)}
-.it{border:1px solid var(--ln);border-radius:12px;padding:10px;margin-bottom:10px}
-.training-day{margin-bottom:14px}
-.training-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.exercise{border:1px solid var(--ln);border-radius:14px;padding:12px;margin-top:10px;background:var(--bg)}
-.exercise-top{display:flex;gap:12px;align-items:center}
-.exercise-art{width:104px;height:92px;flex:0 0 104px;border-radius:12px;background:var(--card);display:flex;align-items:center;justify-content:center}
-.exercise-art svg{width:100%;height:100%}
-.exercise-title{font-weight:700;font-size:16px}
-.exercise-dose{color:var(--ac);font-weight:700;font-size:14px;margin-top:4px}
-.exercise-detail{margin-top:10px;font-size:14px}
-.exercise-detail ol{padding-left:20px;margin:6px 0}
-.exercise-detail li{margin:5px 0}
-.exercise-tip{margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--card);font-size:13px}
-.exercise-check{display:flex;align-items:center;gap:9px;margin-top:10px;padding-top:9px;border-top:1px solid var(--ln);font-size:14px}
-.exercise-check input{width:22px;min-height:22px;flex:0 0 22px}
-.training-note{font-size:13px;color:var(--mut);line-height:1.45}
+:root{--bg:#f3f9fb;--card:#fff;--ink:#102b3b;--muted:#6d8792;--line:#dfebef;--teal:#079eaa;--mint:#35c5ac;--green:#65c94a;--orange:#f5ad55;--shadow:0 8px 24px #17475b0c}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 calc(88px + env(safe-area-inset-bottom))}
+main{max-width:560px;margin:auto;padding:20px 16px 28px}h1{font-size:29px;letter-spacing:-.7px;margin:12px 2px 18px}h2{font-size:19px;margin:22px 2px 12px}h3{font-size:17px;margin:0 0 5px}.muted{color:var(--muted)}.small{font-size:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:23px;padding:17px;margin-bottom:14px;box-shadow:var(--shadow)}
+.screen{display:none}.screen.active{display:block;animation:show .18s ease}@keyframes show{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}
+button,input,select{font:inherit}button{border:0;border-radius:16px;padding:13px 15px;min-height:48px;background:linear-gradient(120deg,var(--teal),var(--mint));color:white;font-weight:750;cursor:pointer}button:active{transform:scale(.985)}button.secondary{background:#f7fbfc;border:1px solid var(--line);color:var(--ink);box-shadow:none}button.ghost{background:transparent;color:var(--teal);padding:7px;min-height:36px;box-shadow:none}
+input,select{width:100%;padding:12px;border-radius:13px;border:1px solid var(--line);background:#f8fbfc;color:var(--ink);min-height:46px}label{display:block;font-size:13px;color:var(--muted);margin:12px 0 5px}.row{display:flex;gap:9px;align-items:center}.row>*{flex:1;min-width:0}.pill{display:inline-block;border-radius:30px;background:#e8f7f7;color:#078e9c;padding:5px 10px;font-size:12px;font-weight:700}
+.hero{background:linear-gradient(130deg,#078fa8,#20b8a8);color:white;border-radius:26px;padding:20px;box-shadow:0 12px 25px #079eaa26}.hero .muted{color:#e1ffff}.hero strong{font-size:32px}.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{background:#f8fbfc;border:1px solid var(--line);border-radius:17px;padding:13px}.metric .val{font-size:22px;font-weight:800}.progress{height:9px;border-radius:20px;background:#e7eff2;overflow:hidden;margin-top:8px}.progress i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--teal),var(--mint))}
+.nav{position:fixed;z-index:10;left:0;right:0;bottom:0;display:flex;gap:3px;padding:8px 7px calc(8px + env(safe-area-inset-bottom));background:#ffffffed;border-top:1px solid var(--line);backdrop-filter:blur(16px);box-shadow:0 -7px 25px #1a52610b}.nav button{flex:1;min-width:0;min-height:60px;padding:5px 1px;background:transparent;color:var(--muted);box-shadow:none;border-radius:15px;font-size:11px}.nav button.active{background:#e3f5f5;color:#078f9b}.nav .ico{display:block;font-size:22px;margin-bottom:1px}
+.week{display:flex;gap:7px;margin:0 0 14px}.week button{flex:1;background:#eaf3f5;color:var(--muted);box-shadow:none;min-height:42px;padding:8px}.week button.active{background:linear-gradient(120deg,var(--teal),var(--mint));color:white}
+.exercise{border:1px solid var(--line);border-radius:19px;padding:12px;margin:10px 0;background:#fbfdfe}.exhead{display:flex;gap:12px;align-items:center;cursor:pointer}.art{width:108px;height:86px;flex:0 0 108px;border-radius:14px;background:linear-gradient(145deg,#e8f7f6,#f4fafb);display:grid;place-items:center}.art svg{width:100%;height:100%}.exname{font-weight:800;font-size:15px}.dose{font-size:12px;color:var(--teal);font-weight:750;margin-top:4px}.exbody{display:none;padding:12px 2px 2px}.exercise.open .exbody{display:block}.exbody p{font-size:14px;margin:8px 0}.exbody ol{padding-left:21px;font-size:14px}.exbody li{margin:7px 0}.done{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:13px;color:var(--muted)}.done input{width:20px;min-height:20px}
+.ring{width:190px;height:190px;margin:2px auto 14px;position:relative}.ring svg{transform:rotate(-90deg);width:100%;height:100%}.ring .center{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.ring strong{font-size:30px}
+.foodrow,.historyrow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 0;border-top:1px solid var(--line)}.foodrow:first-child,.historyrow:first-child{border-top:0}
+.mealimg{width:54px;height:54px;border-radius:14px;background:#e8f6f5;display:grid;place-items:center;font-size:26px;flex:0 0 54px}
+.chart{width:100%;height:175px}.notice{background:#e9f6f7;color:#39717b;padding:12px;border-radius:14px;font-size:13px;margin:10px 0}.hidden{display:none!important}
+@media(min-width:560px){main{padding-top:28px}}
+</style></head><body><main>
+<section class="screen active" id="home"><h1>Доброе утро 👋</h1><div class="hero"><div style="font-weight:700">Вода и Еда</div><div class="muted small" id="today"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:13px"><div><strong id="homeKcal">0</strong><div class="muted small">из 2 000 ккал</div></div><div style="font-size:50px">🍎</div></div><div class="progress"><i id="homeKcalBar" style="width:0%"></i></div></div>
+<h2>Сегодня</h2><div class="metric-grid"><div class="metric"><div>💧 Вода</div><div class="val" id="homeWater">0 мл</div><div class="muted small">цель 2 000 мл</div><div class="progress"><i id="homeWaterBar" style="width:0%"></i></div></div><div class="metric"><div>⚖️ Вес</div><div class="val" id="homeWeight">— кг</div><div class="muted small">последняя запись</div></div></div>
+<div class="card" style="margin-top:13px"><div class="row"><div><h3>Следующая тренировка</h3><div class="muted small" id="nextWorkout">Понедельник · комплекс A</div></div><button data-go="training" style="flex:0 0 auto">Открыть</button></div></div>
+<h2>Питание сегодня</h2><div class="card"><div class="row"><b id="homeMacros">Б 0 г · Ж 0 г · У 0 г</b><button class="secondary" data-go="food" style="flex:0 0 auto">Добавить</button></div></div></section>
 
-.g5{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.g5 label{margin:6px 0 2px;font-size:12px}
-.msg{padding:10px;border-radius:10px;margin:10px 0;font-size:15px}
-.msg.er{background:color-mix(in srgb,var(--er) 15%,transparent);color:var(--er)}
-.msg.in{background:color-mix(in srgb,var(--ac) 15%,transparent)}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--ln);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
-nav button{background:transparent;color:var(--mut);min-height:52px;padding:6px;font-size:13px;border-radius:12px}
-nav button.on{color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
-nav span{display:block;font-size:22px}
+<section class="screen" id="training"><h1>Тренировки</h1><div class="card"><h3>План на неделю</h3><div class="muted">Три спокойные тренировки — понедельник, среда и пятница. Выполняй без рывков, в комфортной амплитуде. Между подходами отдыхай 45–90 секунд.</div></div><div class="week"><button class="active" data-day="0">Пн</button><button data-day="1">Ср</button><button data-day="2">Пт</button></div><div id="workout"></div></section>
 
-/* --- Новый светлый дизайн: вариант A --- */
-:root{color-scheme:light;--bg:#f2f8fa;--card:#ffffff;--tx:#102b36;--mut:#64808b;--ac:#079bb5;--ac2:#f0a33a;--ln:#d7e6eb;--ok:#38a96b;--er:#d94b4b}
-@media(prefers-color-scheme:dark){:root{color-scheme:light;--bg:#f2f8fa;--card:#fff;--tx:#102b36;--mut:#64808b;--ac:#079bb5;--ac2:#f0a33a;--ln:#d7e6eb;--ok:#38a96b;--er:#d94b4b}}
-html,body{background:var(--bg);color:var(--tx)}
-body{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
-main{max-width:560px;padding:18px 16px 24px}
-h1{font-size:28px;letter-spacing:-.7px;font-weight:800;margin:12px 2px 18px}
-h2{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:22px 2px 10px}
-.card{border:1px solid #dce9ed;border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 5px 18px rgba(29,83,101,.045)}
-button{background:linear-gradient(135deg,#079bb5,#13b4b0);color:#fff;border-radius:17px;min-height:54px;font-weight:750;box-shadow:0 4px 12px rgba(7,155,181,.12)}
-button.sec{background:#f7fbfc;border:1.5px solid #d9e7eb;color:var(--tx);box-shadow:none}
-button.sm{min-height:36px;padding:7px 12px}
-input,select,textarea{background:#f7fbfc;border:1.5px solid #dce9ed;border-radius:13px}
-.tab{animation:fadeIn .18s ease}
-@keyframes fadeIn{from{opacity:.75;transform:translateY(3px)}to{opacity:1;transform:none}}
-.ring{width:190px;height:190px}
-.ring svg{width:190px;height:190px}
-.ring b{font-size:36px;color:var(--tx)}
-.bar{height:9px;border-radius:20px;background:#e5eff2}
-.bar i{border-radius:20px;background:linear-gradient(90deg,#079bb5,#27c4b1)}
-.food i{background:linear-gradient(90deg,#f0a33a,#f6c35d)}
-.li{padding:13px 0}
-.it,.exercise{border:1px solid #e0ebee;border-radius:17px;background:#f8fbfc}
-.exercise{padding:14px!important;margin-top:11px}
-.exercise summary{font-size:15px;line-height:1.35}
-.exercise summary input{accent-color:var(--ac)}
-.msg{border-radius:14px;padding:13px}
-nav{z-index:20;justify-content:space-around;gap:3px;background:rgba(255,255,255,.97);border-top:1px solid #dce9ed;padding:8px 8px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -6px 22px rgba(30,75,90,.06);backdrop-filter:blur(14px)}
-nav button{width:auto;min-width:0;flex:1;min-height:62px;padding:6px 2px;background:transparent;color:#6a838c;box-shadow:none;border-radius:16px;font-size:12px;font-weight:650}
-nav button.on{background:#e2f4f7;color:#078eaa}
-nav span{font-size:23px;margin-bottom:1px}
-.row{align-items:stretch}
-#t-food>.row button{flex:1}
-#t-food>.row button.sec{background:#f7fbfc}
-#t-training>.card:first-of-type{background:linear-gradient(135deg,#fff 0%,#effafd 100%)}
-#training-list>.card:first-child{background:#eaf7fa;border-color:#d5edf1}
-#training-list>.card:first-child b{font-size:17px}
-#training-list .card>.row b{font-size:16px}
-#t-set .msg.in{background:#e8f6f8;color:#286777}
-@media(min-width:560px){main{padding-top:24px}}
+<section class="screen" id="water"><h1>Вода</h1><div class="card"><div class="ring"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="82" fill="none" stroke="#e6eff2" stroke-width="15"/><circle id="waterArc" cx="100" cy="100" r="82" fill="none" stroke="#12aaa9" stroke-width="15" stroke-linecap="round" stroke-dasharray="515" stroke-dashoffset="515"/></svg><div class="center"><strong id="waterTotal">0</strong><span class="muted small" id="waterGoal">из 2 000 мл</span></div></div><div class="row"><button data-water="200">+200 мл</button><button data-water="250">+250 мл</button><button data-water="500">+500 мл</button></div><label>Свой объём, мл</label><div class="row"><input id="waterCustom" type="number" placeholder="Например, 300"><button id="waterAdd">Добавить</button></div><button class="secondary" id="waterUndo" style="width:100%;margin-top:10px">Отменить последнюю запись</button></div><h2>Последние дни</h2><div class="card" id="waterHistory"></div></section>
 
-</style>
-</head>
-<body>
-<main>
+<section class="screen" id="food"><h1>Еда</h1><div class="card"><div class="row"><b style="font-size:24px" id="foodKcal">0 ккал</b><span class="muted small" id="foodRemain" style="text-align:right">осталось 2 000</span></div><div class="progress"><i id="foodBar" style="width:0%"></i></div><p class="muted" id="macros">Б 0 г · Ж 0 г · У 0 г</p></div><div class="row"><button id="takePhoto">📷 Снять еду</button><button class="secondary" id="choosePhoto">🖼 Из галереи</button></div><input class="hidden" type="file" id="photoCamera" accept="image/*" capture="environment"><input class="hidden" type="file" id="photoGallery" accept="image/*"><div id="scanStatus"></div><div id="scanResult"></div><div class="card"><h3>Добавить вручную</h3><label>Название блюда</label><input id="manualName" placeholder="Например, омлет"><div class="row"><div><label>Ккал</label><input id="manualKcal" type="number" placeholder="250"></div><div><label>Белки, г</label><input id="manualP" type="number" placeholder="15"></div></div><div class="row"><div><label>Жиры, г</label><input id="manualF" type="number" placeholder="12"></div><div><label>Углеводы, г</label><input id="manualC" type="number" placeholder="20"></div></div><label>Приём пищи</label><select id="manualMeal"><option>Завтрак</option><option>Обед</option><option>Ужин</option><option>Перекус</option></select><button id="manualAdd" style="width:100%;margin-top:12px">Добавить в дневник</button></div><h2>Дневник за сегодня</h2><div class="card" id="foodDiary"></div></section>
 
+<section class="screen" id="weight"><h1>Вес</h1><div class="card"><div class="row"><div><div class="muted small">Последний вес</div><b style="font-size:28px" id="weightCurrent">— кг</b></div><div style="text-align:right"><div class="muted small">Цель</div><b style="font-size:22px" id="weightTarget">82 кг</b></div></div><div class="progress"><i id="weightProgress" style="width:0%"></i></div></div><div class="card"><h3>Записать вес</h3><label>Вес, кг</label><input id="weightInput" type="number" step=".1" placeholder="Например, 90.5"><label>Дата</label><input id="weightDate" type="date"><button id="weightSave" style="width:100%;margin-top:12px">Сохранить запись</button></div><h2>Динамика</h2><div class="card"><svg id="weightChart" class="chart" viewBox="0 0 320 175"></svg><div id="weightHistory"></div></div></section>
 
-<section class="tab on" id="t-training">
-  <h1>Тренировки</h1>
-  <div class="card">
-    <b>План на неделю</b>
-    <div class="mut" style="margin-top:4px">Три лёгкие тренировки. Выполняй движения спокойно, без рывков и через комфортную амплитуду. Если появляется боль — остановись.</div>
-  </div>
-  <div id="training-list"></div>
-</section>
-
-<section class="tab" id="t-water">
-  <h1>Вода</h1>
-  <div class="card">
-    <div class="ring">
-      <svg width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="82" fill="none" stroke="var(--ln)" stroke-width="16"/><circle id="ringp" cx="100" cy="100" r="82" fill="none" stroke="var(--ac)" stroke-width="16" stroke-linecap="round" stroke-dasharray="515.2" stroke-dashoffset="515.2" style="transition:stroke-dashoffset .4s"/></svg>
-      <div class="c"><b id="wml">0</b><span class="mut" id="wgoal">из 2000 мл</span></div>
-    </div>
-    <div class="row"><button data-w="200">+200</button><button data-w="250">+250</button><button data-w="500">+500</button></div>
-    <div class="row" style="margin-top:8px"><input id="wcustom" type="number" inputmode="numeric" placeholder="Свой объём, мл"><button class="sec" id="wadd" style="flex:0 0 120px">Добавить</button></div>
-    <button class="sec" id="wundo" style="margin-top:8px">Отменить последнюю запись</button>
-  </div>
-  <h2>Последние 14 дней</h2>
-  <div class="card" id="whist"></div>
-</section>
-
-<section class="tab" id="t-food">
-  <h1>Еда</h1>
-  <div class="card">
-    <div class="row"><b id="kc">0</b><span class="mut" style="text-align:right" id="kcg"></span></div>
-    <div class="bar food"><i id="kbar" style="width:0"></i></div>
-    <div class="mut" id="macro" style="margin-top:6px"></div>
-  </div>
-  <div class="row">
-    <button id="bcam">📷 Снять еду</button>
-    <button class="sec" id="bgal">🖼 Из галереи</button>
-  </div>
-  <input type="file" id="fcam" accept="image/*" capture="environment" hidden>
-  <input type="file" id="fgal" accept="image/*" hidden>
-  <div id="status"></div>
-  <div id="result"></div>
-  <h2>Дневник за сегодня</h2>
-  <div class="card" id="diary"></div>
-</section>
-
-<section class="tab" id="t-weight">
-  <h1>Вес</h1>
-  <div class="card">
-    <div class="row" style="align-items:end">
-      <div><div class="mut">Сейчас</div><b id="kgcur" style="font-size:32px"></b></div>
-      <div style="text-align:right"><div class="mut">Цель</div><b id="kggoal" style="font-size:22px"></b></div>
-    </div>
-    <div class="bar"><i id="kgbar" style="width:0"></i></div>
-    <div class="row mut" style="margin-top:6px"><span id="kgstart"></span><span id="kgleft" style="text-align:right"></span></div>
-  </div>
-  <div class="card" id="kgchart"></div>
-  <div class="card">
-    <div class="row">
-      <div><label for="kgin" style="margin-top:0">Вес, кг</label><input id="kgin" type="text" inputmode="decimal" placeholder="например 91,4"></div>
-      <div><label for="kgdate" style="margin-top:0">Дата</label><input id="kgdate" type="date"></div>
-    </div>
-    <button id="kgadd" style="margin-top:12px">Записать вес</button>
-  </div>
-  <h2>История</h2>
-  <div class="card" id="kgtable"></div>
-</section>
-
-<section class="tab" id="t-set">
-  <h1>Настройки</h1>
-  <div class="card">
-    <div class="msg in">Распознавание еды работает через защищённый сервер. API-ключ хранится на сервере и здесь не требуется.</div>
-    <label for="smodel">Модель</label>
-    <input id="smodel" placeholder="gpt-4o-mini" autocapitalize="off">
-    <label for="sgw">Норма воды, мл</label>
-    <input id="sgw" type="number" inputmode="numeric">
-    <label for="sgk">Цель по калориям, ккал</label>
-    <input id="sgk" type="number" inputmode="numeric">
-    <label for="skgs">Стартовый вес, кг</label>
-    <input id="skgs" type="text" inputmode="decimal">
-    <label for="skgg">Целевой вес, кг</label>
-    <input id="skgg" type="text" inputmode="decimal">
-    <button id="ssave" style="margin-top:14px">Сохранить</button>
-  </div>
-  <h2>Резервная копия</h2>
-  <div class="card">
-    <div class="mut">Экспорт копирует все данные в поле ниже. Для импорта вставьте туда сохранённый текст.</div>
-    <textarea id="bk" rows="4" style="margin:8px 0"></textarea>
-    <div class="row"><button class="sec" id="bexp">Экспорт</button><button class="sec" id="bimp">Импорт</button></div>
-  </div>
-</section>
-
+<section class="screen" id="more"><h1>Ещё</h1><div class="card"><h3>Цели и настройки</h3><label>Норма воды, мл</label><input id="goalWater" type="number" value="2000"><label>Цель калорий, ккал</label><input id="goalKcal" type="number" value="2000"><label>Целевой вес, кг</label><input id="goalWeight" type="number" step=".1" value="82"><button id="saveSettings" style="width:100%;margin-top:12px">Сохранить настройки</button></div><div class="card"><h3>О приложении</h3><p class="muted small">Данные дневника хранятся на этом устройстве. Новая версия начинает учёт с чистого листа. Распознавание еды по фото требует подключения к интернету.</p></div></section>
 </main>
-<nav>
-  <button class="on" data-tab="training"><span>🏃</span>Тренировки</button>
-  <button data-tab="water"><span>💧</span>Вода</button>
-  <button data-tab="food"><span>🍽</span>Еда</button>
-  <button data-tab="weight"><span>⚖️</span>Вес</button>
-  <button data-tab="set"><span>⚙️</span>Настройки</button>
-</nav>
-
-
-
+<nav class="nav"><button class="active" data-go="home"><span class="ico">⌂</span>Главная</button><button data-go="training"><span class="ico">🏃</span>Тренировки</button><button data-go="water"><span class="ico">💧</span>Вода</button><button data-go="food"><span class="ico">🍽️</span>Еда</button><button data-go="weight"><span class="ico">⚖️</span>Вес</button><button data-go="more"><span class="ico">•••</span>Ещё</button></nav>
 <script>
-// ---------- Хранилище ----------
-const KEY='vodaeda.v1';
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const def={water:{},food:{},weight:[],training:{},set:{key:'',model:'gpt-4o-mini',goalMl:2000,goalKcal:2000,wStart:92,wGoal:82}};
-let D;
-try{D=Object.assign({},def,JSON.parse(localStorage.getItem(KEY)||'{}'));D.set=Object.assign({},def.set,D.set)}catch(e){D=JSON.parse(JSON.stringify(def))}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}};
-D.training=D.training||{};
-// Старый ключ больше не нужен: запросы идут через защищённый Worker.
-if(D.set.key){D.set.key='';save()}
-const day=(d=new Date())=>d.toLocaleDateString('sv');
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const num=v=>Math.max(0,Math.round(parseFloat(v)||0));
-
-// ---------- Вкладки ----------
-document.addEventListener('click',e=>{
-  const b=e.target.closest('nav button[data-tab]');
-  if(!b)return;
-  $('nav button').forEach(x=>x.classList.toggle('on',x===b));
-  $('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.tab));
-  if(b.dataset.tab==='training')renderTraining();
-  window.scrollTo(0,0);
-});
-
-// ---------- Тренировки ----------
-const EXERCISES={
-  wallPush:{name:'Отжимания от стены',dose:'2 подхода × 8–12 повторений',art:'push',steps:['Встань лицом к стене на расстоянии вытянутых рук. Ладони поставь на стену на уровне груди, чуть шире плеч.','Согни локти и медленно приблизь грудь к стене. Тело держи прямой линией, пятки не отрывай.','Плавно оттолкнись от стены и вернись в исходное положение.'],breath:'Вдыхай, когда приближаешься к стене; выдыхай, когда отталкиваешься.',avoid:'Не прогибай поясницу, не поднимай плечи к ушам и не делай движение рывком.',focus:'Грудь, плечи и руки'},
-  bridge:{name:'Ягодичный мостик',dose:'2 подхода × 8–10 повторений',art:'bridge',steps:['Ляг на спину, согни ноги, стопы поставь на пол примерно на ширине таза. Руки лежат вдоль тела.','Слегка напряги живот и ягодицы. Медленно подними таз до комфортной высоты.','Задержись на 1–2 секунды и плавно опусти таз на пол.'],breath:'Выдыхай при подъёме таза, вдыхай при опускании.',avoid:'Не прогибай поясницу и не старайся поднять таз как можно выше. Движение небольшое и контролируемое.',focus:'Ягодицы и мышцы задней поверхности бедра'},
-  bird:{name:'Птица-собака',dose:'2 подхода × 5–6 раз на каждую сторону',art:'bird',steps:['Встань на четвереньки: ладони под плечами, колени под тазом. Спина ровная.','Медленно вытягивай вперёд одну руку и одновременно назад противоположную ногу. Не поднимай их выше корпуса.','Удерживай положение 2–3 секунды, вернись и поменяй сторону. Если сложно, сначала двигай только рукой или только ногой.'],breath:'Дыши спокойно, не задерживай дыхание.',avoid:'Не раскачивай таз, не прогибай поясницу и не запрокидывай голову.',focus:'Мышцы корпуса, ягодицы и мышцы спины'},
-  clam:{name:'Ракушка лёжа на боку',dose:'2 подхода × 10 повторений на сторону',art:'clam',steps:['Ляг на бок, согни ноги, колени держи вместе. Голова удобно лежит на руке.','Не разворачивая таз назад, медленно подними верхнее колено. Стопы остаются вместе.','Плавно опусти колено. Сделай повторения и перевернись на другой бок.'],breath:'Выдыхай при подъёме колена, вдыхай при опускании.',avoid:'Не заваливай таз назад и не раскрывай движение через силу.',focus:'Боковая поверхность ягодиц и мышцы таза'},
-  calf:{name:'Подъёмы на носки у опоры',dose:'2 подхода × 10–12 повторений',art:'calf',steps:['Встань лицом к стене или устойчивому стулу, легко придерживайся руками. Стопы параллельны.','Медленно поднимись на носки, распределяя вес между большим пальцем и остальными пальцами стопы.','Задержись на секунду и плавно опустись.'],breath:'Выдыхай при подъёме, вдыхай при опускании.',avoid:'Не пружинь, не заваливай стопы наружу и не переноси весь вес на руки.',focus:'Икроножные мышцы и устойчивость голеностопа'},
-  brace:{name:'Мягкое напряжение живота лёжа',dose:'5–6 повторов по 5–8 секунд',art:'brace',steps:['Ляг на спину, согни колени, стопы поставь на пол. Поясница в естественном удобном положении.','Представь, что мягко застёгиваешь тесные брюки: слегка напряги низ живота, не втягивая его изо всех сил.','Удерживай лёгкое напряжение 5–8 секунд, продолжая спокойно дышать, затем полностью расслабься.'],breath:'Дыши непрерывно. Не задерживай дыхание.',avoid:'Не дави поясницей в пол и не напрягайся до дрожи.',focus:'Глубокие мышцы живота'},
-  wallSlide:{name:'Скольжение руками по стене',dose:'2 подхода × 8–10 повторений',art:'slide',steps:['Встань спиной к стене. Прижми к ней верхнюю часть спины, не выгибая поясницу.','Поставь руки на стену согнутыми в локтях, насколько удобно.','Медленно скользи руками вверх, затем опускай вниз. Амплитуда — только без боли и дискомфорта.'],breath:'Дыши ровно на протяжении всего движения.',avoid:'Не прогибай поясницу и не поднимай плечи к ушам.',focus:'Подвижность плеч и верхней части спины'},
-  heel:{name:'Скольжение пяткой лёжа',dose:'2 подхода × 8 повторений на каждую ногу',art:'heel',steps:['Ляг на спину, обе ноги согнуты, стопы на полу.','Медленно скользи одной пяткой вперёд, постепенно выпрямляя ногу настолько, насколько удобно.','Верни пятку обратно и повтори другой ногой. Таз остаётся неподвижным.'],breath:'Выдыхай, когда выпрямляешь ногу; вдыхай, когда возвращаешь.',avoid:'Не выгибай поясницу и не выпрямляй колено через неприятные ощущения.',focus:'Контроль мышц живота и движение ноги'},
-  hip:{name:'Отведение ноги в сторону стоя',dose:'2 подхода × 8–10 повторений на сторону',art:'hip',steps:['Встань боком к устойчивой опоре и держись за неё одной рукой. Корпус вертикальный.','Медленно отведи прямую ногу в сторону на небольшое расстояние, носок направлен вперёд.','Верни ногу обратно, не бросая её. Выполни на обе стороны.'],breath:'Выдыхай при отведении ноги, вдыхай при возвращении.',avoid:'Не наклоняй корпус в сторону и не разворачивай носок к потолку.',focus:'Боковая поверхность ягодиц и мышцы таза'},
-  knee:{name:'Разгибание колена сидя',dose:'2 подхода × 8–10 повторений на сторону',art:'knee',steps:['Сядь на устойчивый стул, спина опирается или находится в нейтральном положении. Стопы на полу.','Медленно выпрями одну ногу в колене до комфортного положения. Не нужно обязательно распрямлять её до конца.','Задержись на секунду и плавно опусти стопу. Повтори другой ногой.'],breath:'Выдыхай при выпрямлении, вдыхай при опускании.',avoid:'Не раскачивай корпус и не делай резких движений.',focus:'Передняя поверхность бедра'},
-  march:{name:'Марш сидя на стуле',dose:'2 подхода × 8–10 подъёмов каждой ноги',art:'march',steps:['Сядь ближе к переднему краю устойчивого стула. Стопы на полу, корпус ровный.','Поочерёдно приподнимай одну стопу на несколько сантиметров, словно шагаешь на месте.','Опускай стопу мягко и меняй ногу. Двигайся медленно.'],breath:'Дыши свободно, не задерживай дыхание.',avoid:'Не раскачивайся и не поднимай колено высоко.',focus:'Мышцы бёдер и контроль корпуса'}
-};
-const TRAINING=[
-  {key:'mon',name:'Понедельник',title:'Тренировка А',items:[
-    {id:'wallpush',name:'Отжимания от стены',dose:'2 подхода по 8–12 раз',time:'1–2 минуты',how:'Встань лицом к стене на расстоянии вытянутых рук. Ладони поставь на уровне груди чуть шире плеч. Медленно согни локти и приблизь грудь к стене, затем плавно оттолкнись. Держи тело прямой линией, не прогибай поясницу.',feel:'Работают грудь, плечи и руки. Двигайся без рывков.'},
-    {id:'bridge',name:'Ягодичный мостик',dose:'2 подхода по 10 раз',time:'1–2 минуты',how:'Ляг на спину, согни колени, стопы поставь на пол примерно на ширине таза. Напряги ягодицы и плавно подними таз до комфортного положения. Не переразгибай поясницу. Задержись на 1–2 секунды и медленно опустись.',feel:'Основная работа — ягодичные мышцы. Не выталкивай таз слишком высоко.'},
-    {id:'bird',name:'Птица-собака',dose:'2 подхода по 6 раз на сторону',time:'2 минуты',how:'Встань на четвереньки: ладони под плечами, колени под тазом. Напряги живот. Медленно вытяни вперёд одну руку и назад противоположную ногу, не поворачивая таз и не прогибаясь. Вернись и поменяй стороны. Можно сначала двигать только рукой или только ногой.',feel:'Работают мышцы корпуса и спины. Таз остаётся ровным.'},
-    {id:'sideleg',name:'Отведение ноги в сторону стоя',dose:'2 подхода по 10 раз на сторону',time:'2 минуты',how:'Встань боком к устойчивой опоре и держись одной рукой. Корпус ровный, носок направлен вперёд. Отведи прямую ногу немного в сторону, не наклоняя туловище. Медленно верни. Амплитуда небольшая и без раскачивания.',feel:'Чувствуй боковую часть ягодиц. Не поднимай ногу высоко.'},
-    {id:'calf',name:'Подъёмы на носки у опоры',dose:'2 подхода по 12 раз',time:'1–2 минуты',how:'Встань прямо, стопы параллельно, держись за спинку устойчивого стула или столешницу. Плавно поднимись на носки, задержись на секунду и медленно опусти пятки. Не пружинь.',feel:'Работают икроножные мышцы. Вес распределяй равномерно.'},
-    {id:'brace',name:'Мягкое напряжение живота лёжа',dose:'5 раз по 10 секунд',time:'1–2 минуты',how:'Ляг на спину, колени согнуты, стопы на полу. Спокойно вдохни. На выдохе слегка подтяни нижнюю часть живота, будто застёгиваешь тесные брюки. Не задерживай дыхание и не прижимай поясницу силой. Удерживай мягкое напряжение 10 секунд, затем расслабься.',feel:'Напряжение лёгкое, без боли и без задержки дыхания.'}
-  ]},
-  {key:'wed',name:'Среда',title:'Тренировка Б',items:[
-    {id:'wallsilde',name:'Скольжение руками по стене',dose:'2 подхода по 10 раз',time:'1–2 минуты',how:'Встань лицом к стене. Поставь предплечья или ладони на стену на удобной высоте. Медленно скользи руками вверх настолько, насколько комфортно, затем опускай. Не поднимай плечи к ушам и не прогибай поясницу.',feel:'Мягкая работа плеч и верхней части спины. Не преодолевай боль.'},
-    {id:'clam',name:'Ракушка лёжа на боку',dose:'2 подхода по 10 раз на сторону',time:'2 минуты',how:'Ляг на бок, согни колени, стопы вместе. Голова лежит на руке, таз не заваливается назад. Сохраняя стопы вместе, медленно подними верхнее колено, затем опусти. Повтори на другом боку.',feel:'Работает боковая часть ягодиц. Не разворачивай весь корпус.'},
-    {id:'heelslide',name:'Скольжение пяткой лёжа',dose:'2 подхода по 8 раз на сторону',time:'2 минуты',how:'Ляг на спину, обе ноги согнуты. Медленно скользи одной пяткой по полу вперёд, постепенно выпрямляя ногу настолько, насколько удобно. Верни пятку обратно. Таз остаётся неподвижным, живот слегка напряжён.',feel:'Движение плавное. Не допускай усиления дискомфорта в пояснице или колене.'},
-    {id:'backleg',name:'Отведение ноги назад у опоры',dose:'2 подхода по 10 раз на сторону',time:'2 минуты',how:'Встань лицом к устойчивой опоре и держись двумя руками. Не прогибаясь в пояснице, отведи прямую ногу немного назад. Не наклоняй корпус и не разворачивай таз. Медленно верни ногу и поменяй сторону.',feel:'Работают ягодицы. Достаточно небольшого движения.'},
-    {id:'kneeext',name:'Разгибание колена сидя',dose:'2 подхода по 10 раз на сторону',time:'2 минуты',how:'Сядь на устойчивый стул, спина нейтральная, стопы под коленями. Медленно выпрями одну ногу до комфортного положения, не блокируя колено. Задержись на секунду и опусти. Повтори другой ногой.',feel:'Работают мышцы передней поверхности бедра. Не добавляй утяжеление.'},
-    {id:'seatedmarch',name:'Марш сидя на стуле',dose:'2 подхода по 10 раз на сторону',time:'1–2 минуты',how:'Сядь ближе к переднему краю устойчивого стула, стопы на полу. Сохраняя корпус ровным, поочерёдно немного поднимай стопы, как при медленной ходьбе на месте. Не раскачивайся и не торопись.',feel:'Лёгкая нагрузка на мышцы бёдер и корпуса. Поднимай колено невысоко.'}
-  ]},
-  {key:'fri',name:'Пятница',title:'Тренировка В',items:[
-    {id:'wallpush',name:'Отжимания от стены',dose:'2 подхода по 8–12 раз',time:'1–2 минуты',how:'Встань лицом к стене на расстоянии вытянутых рук. Ладони на уровне груди. Согни локти, приблизь грудь к стене и плавно оттолкнись. Тело держи ровно, живот слегка напряжён.',feel:'Работают грудь, плечи и руки.'},
-    {id:'bridge',name:'Ягодичный мостик',dose:'2 подхода по 10 раз',time:'1–2 минуты',how:'Ляг на спину, колени согнуты, стопы на полу. Напряги ягодицы и подними таз до комфортной высоты. Не прогибай поясницу. Плавно опустись.',feel:'Основная работа — ягодичные мышцы.'},
-    {id:'bird',name:'Птица-собака',dose:'2 подхода по 6 раз на сторону',time:'2 минуты',how:'На четвереньках медленно вытяни вперёд одну руку и назад противоположную ногу. Не вращай таз и не прогибай спину. Вернись и поменяй стороны. Упрощённый вариант — вытягивать только руку или только ногу.',feel:'Работают мышцы корпуса и спины.'},
-    {id:'clam',name:'Ракушка лёжа на боку',dose:'2 подхода по 10 раз на сторону',time:'2 минуты',how:'Ляг на бок, колени согнуты, стопы вместе. Не заваливая таз назад, подними верхнее колено и медленно опусти. Повтори на другом боку.',feel:'Работает боковая часть ягодиц.'},
-    {id:'seatedmarch',name:'Марш сидя на стуле',dose:'2 подхода по 10 раз на сторону',time:'1–2 минуты',how:'Сядь на устойчивый стул, спина ровная. Поочерёдно поднимай стопы невысоко, имитируя медленную ходьбу. Не раскачивай корпус.',feel:'Лёгкая работа бёдер и корпуса.'},
-    {id:'brace',name:'Мягкое напряжение живота лёжа',dose:'5 раз по 10 секунд',time:'1–2 минуты',how:'Ляг на спину, колени согнуты. На выдохе слегка напряги нижнюю часть живота, не задерживая дыхание. Удерживай 10 секунд и расслабься.',feel:'Напряжение мягкое, без боли.'}
-  ]}
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],KEY='vodaeda.clean.v3';
+const today=()=>new Date().toLocaleDateString('sv');
+const fresh={water:{},food:{},weights:[],checks:{},settings:{water:2000,kcal:2000,target:82}};
+let D;try{D=JSON.parse(localStorage.getItem(KEY))||structuredClone(fresh)}catch{D=JSON.parse(JSON.stringify(fresh))}
+const save=()=>localStorage.setItem(KEY,JSON.stringify(D)),fmt=n=>Math.round(n*10)/10;
+function go(id){$$('.screen').forEach(x=>x.classList.toggle('active',x.id===id));$$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.go===id));window.scrollTo(0,0);if(id==='training')renderWorkout();if(id==='water')renderWater();if(id==='food')renderFood();if(id==='weight')renderWeight()}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)go(b.dataset.go)});
+$('#today').textContent=new Date().toLocaleDateString('ru',{weekday:'long',day:'numeric',month:'long'});
+const EX=[
+{name:'Отжимания от стены',dose:'2 × 8–12 повторений',focus:'Грудь, плечи и руки',steps:['Встань лицом к стене на расстоянии вытянутых рук. Ладони на уровне груди чуть шире плеч.','Согни локти и медленно приблизь грудь к стене, сохраняя корпус прямым.','Плавно оттолкнись и вернись. Выдыхай при отталкивании.'],tip:'Не прогибай поясницу и не поднимай плечи к ушам.',pose:'<circle cx="30" cy="15" r="6"/><path d="M30 22 L30 48 L19 62 M30 48 L43 62 M30 28 L48 34 L57 34 M30 28 L12 34 L5 34 M58 18 V60" />'},
+{name:'Ягодичный мостик',dose:'2 × 10–12 повторений',focus:'Ягодицы',steps:['Ляг на спину, согни колени, стопы поставь на пол на ширине таза.','Слегка напряги живот и ягодицы, подними таз до комфортной высоты.','Задержись на секунду и медленно опусти таз.'],tip:'Не переразгибай поясницу и не поднимай таз слишком высоко.',pose:'<circle cx="12" cy="48" r="5"/><path d="M18 48 L31 39 L44 39 L53 48 M18 48 L10 59 M31 39 L30 55 M44 39 L51 29" />'},
+{name:'Птица-собака',dose:'2 × 6 раз на сторону',focus:'Мышцы корпуса и спины',steps:['Встань на четвереньки: ладони под плечами, колени под тазом.','Вытяни вперёд одну руку и назад противоположную ногу.','Удержи 2 секунды, вернись и поменяй стороны.'],tip:'Не вращай таз и не прогибай поясницу. Можно двигать только рукой или ногой.',pose:'<circle cx="27" cy="18" r="5"/><path d="M27 24 L30 42 L44 42 L55 49 M30 42 L18 51 M28 30 L12 30 L5 22 M29 30 L43 22 L56 22" />'},
+{name:'Отведение ноги в сторону стоя',dose:'2 × 10 раз на сторону',focus:'Боковая поверхность ягодиц',steps:['Встань боком к стене или стулу и слегка держись рукой.','Медленно отведи прямую ногу в сторону на небольшую высоту.','Верни ногу, не раскачивая корпус. Повтори другой ногой.'],tip:'Носок направлен вперёд, корпус не наклоняй.',pose:'<circle cx="28" cy="13" r="5"/><path d="M28 19 L28 43 M28 27 L16 34 M28 27 L40 34 M28 43 L19 60 M28 43 L45 48 L58 48" />'},
+{name:'Подъёмы на носки у опоры',dose:'2 × 12 повторений',focus:'Икроножные мышцы',steps:['Встань лицом к стене или устойчивому стулу, легко придерживайся.','Медленно поднимись на носки, сохраняя стопы параллельными.','Задержись на секунду и плавно опустись.'],tip:'Не пружинь и не заваливай стопы наружу.',pose:'<circle cx="28" cy="13" r="5"/><path d="M28 19 L28 43 L19 58 M28 43 L38 54 L43 58 M28 27 L15 34 M28 27 L40 34 M10 61 H49" />'},
+{name:'Мягкое напряжение живота лёжа',dose:'6 × 5–8 секунд',focus:'Глубокие мышцы живота',steps:['Ляг на спину, согни колени, стопы на полу.','Слегка напряги нижнюю часть живота, словно застёгиваешь тесные брюки.','Удерживай 5–8 секунд, продолжая спокойно дышать, затем расслабься.'],tip:'Не задерживай дыхание и не дави поясницей в пол.',pose:'<circle cx="12" cy="43" r="5"/><path d="M18 43 L34 43 L47 50 M18 43 L9 55 M34 43 L36 56 M25 35 Q33 29 41 35" />'}
 ];
-function weekMonday(){
-  const d=new Date();d.setHours(0,0,0,0);
-  const dow=d.getDay();
-  d.setDate(d.getDate()-((dow+6)%7)+(dow===0||dow===6?7:0));
-  return d;
-}
-function exercisePicture(id){
-  const poses={
-    wallpush:'<circle cx="28" cy="13" r="6"/><path d="M28 20 L28 42 L18 56 M28 42 L39 55 M28 27 L13 34 L5 34 M28 27 L43 31 L52 31"/><path d="M5 22 V48 M1 22 H9" stroke-dasharray="2 3"/>',
-    bridge:'<circle cx="13" cy="42" r="5"/><path d="M19 43 L32 35 L43 35 L52 45 M19 43 L8 49 M32 35 L31 50 M43 35 L49 28 L54 28"/>',
-    bird:'<circle cx="25" cy="18" r="5"/><path d="M25 24 L29 40 L43 40 L51 48 M29 40 L17 49 M27 29 L12 29 L5 22 M28 30 L40 22 L50 22"/>',
-    sideleg:'<circle cx="26" cy="12" r="5"/><path d="M26 18 L26 43 M26 26 L14 34 M26 26 L39 34 M26 43 L17 57 M26 43 L43 52 L53 52"/>',
-    calf:'<circle cx="26" cy="12" r="5"/><path d="M26 18 L26 42 L18 56 M26 42 L37 55 M26 26 L14 34 M26 26 L38 34 M12 58 H42"/>',
-    brace:'<circle cx="12" cy="43" r="5"/><path d="M18 43 L34 43 L46 48 M22 43 L16 54 M34 43 L38 54 M25 35 Q32 30 39 35" />',
-    wallsilde:'<circle cx="24" cy="12" r="5"/><path d="M24 18 L24 43 L15 57 M24 43 L36 57 M24 27 L12 18 L12 5 M24 27 L38 17 L38 5 M48 5 V58"/>',
-    clam:'<circle cx="13" cy="39" r="5"/><path d="M19 42 Q32 33 45 42 L53 48 M19 42 L10 52 M28 38 L34 25 L46 20"/>',
-    heelslide:'<circle cx="11" cy="42" r="5"/><path d="M17 43 L33 43 L43 49 M17 43 L8 51 M33 43 L34 55 M43 49 L55 49"/>',
-    backleg:'<circle cx="26" cy="12" r="5"/><path d="M26 18 L26 42 M26 28 L14 34 M26 28 L38 34 M26 42 L18 56 M26 42 L43 48 L54 48"/>',
-    kneeext:'<circle cx="17" cy="12" r="5"/><path d="M17 18 L17 38 L34 38 L48 38 M17 38 L8 53 M34 38 L34 54 M48 8 V55"/>',
-    seatedmarch:'<circle cx="24" cy="12" r="5"/><path d="M24 18 L24 34 L39 34 M24 26 L13 35 M24 26 L36 27 M39 34 L48 45 L53 45 M39 34 L35 48 L27 48 M8 36 H44 V51"/>'
-  };
-  return '<svg viewBox="0 0 64 64" role="img" aria-label="Схема упражнения" style="width:76px;height:76px;flex:0 0 76px;color:var(--ac)"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'+(poses[id]||poses.sideleg)+'</g></svg>';
-}
-function renderTraining(){
-  const monday=weekMonday();
-  const html=TRAINING.map((w,i)=>{
-    const date=new Date(monday);date.setDate(monday.getDate()+[0,2,4][i]);
-    const key=date.toLocaleDateString('sv');
-    const done=D.training[key]||{};
-    const count=w.items.filter((_,j)=>done[j]).length;
-    return '<div class="card"><div class="row" style="align-items:center"><div><b>'+w.name+' · '+w.title+'</b><div class="mut">'+date.toLocaleDateString('ru',{day:'numeric',month:'long'})+'</div></div><b style="white-space:nowrap">'+count+'/6</b></div><div class="bar"><i style="width:'+(count/6*100)+'%"></i></div>'+
-      w.items.map((item,j)=>'<details class="exercise" style="border-top:1px solid var(--ln);padding:10px 0"><summary style="display:flex;align-items:center;gap:10px;cursor:pointer;list-style:none"><input type="checkbox" data-training-date="'+key+'" data-training-index="'+j+'" '+(done[j]?'checked':'')+' style="width:22px;min-height:22px;flex:0 0 22px"><span style="flex:1"><b>'+(j+1)+'. '+item.name+'</b><small class="mut" style="display:block">'+item.dose+'</small></span><span style="color:var(--ac)">⌄</span></summary><div style="display:flex;gap:10px;align-items:center;margin:12px 0 8px;padding:10px;background:var(--bg);border-radius:12px">'+exercisePicture(item.id)+'<div><b style="font-size:14px">Схема движения</b><div class="mut">Ориентир, выполняй медленно и без рывков</div></div></div><p style="margin:8px 0"><b>Как выполнять:</b> '+item.how+'</p><p class="mut" style="margin:8px 0"><b>На что обратить внимание:</b> '+item.feel+'</p><div class="mut">⏱ Примерно '+item.time+'</div></details>').join('')+'</div>';
-  }).join('');
-  $('#training-list').innerHTML='<div class="card"><b>Как заниматься</b><p class="mut" style="margin:6px 0">Перед началом 3–5 минут спокойно походи по комнате и разомни плечи. Между подходами отдыхай 45–90 секунд. Первую неделю можно делать по одному подходу, если шесть упражнений подряд пока тяжело.</p><p class="mut" style="margin:6px 0">Отмечай галочкой выполненные упражнения. Нажми на название, чтобы открыть технику и схему.</p><p class="mut" style="margin:6px 0">Остановись при боли, головокружении, необычной одышке или ухудшении самочувствия. Не выполняй движение через боль; при ограничениях врача согласуй комплекс со специалистом.</p></div>'+html;
-}
-$('#training-list').addEventListener('change',e=>{
-  const el=e.target;
-  if(!el.matches('[data-training-date]'))return;
-  const d=el.dataset.trainingDate,i=el.dataset.trainingIndex;
-  D.training[d]=D.training[d]||{};
-  D.training[d][i]=el.checked;
-  save();renderTraining();
-});
-renderTraining();
-// ---------- Вода ----------
-function renderWater(){
-  const list=D.water[day()]||[], sum=list.reduce((a,x)=>a+x.ml,0), goal=D.set.goalMl;
-  $('#wml').textContent=sum;
-  $('#wgoal').textContent='из '+goal+' мл';
-  $('#ringp').style.strokeDashoffset=515.2*(1-Math.min(1,sum/goal));
-  let h='';
-  for(let i=0;i<14;i++){
-    const d=new Date();d.setDate(d.getDate()-i);
-    const s=(D.water[day(d)]||[]).reduce((a,x)=>a+x.ml,0);
-    h+=`<div class="li" style="display:block"><div class="row" style="justify-content:space-between"><span>${i?d.toLocaleDateString('ru',{day:'numeric',month:'short',weekday:'short'}):'Сегодня'}</span><b>${s} мл</b></div><div class="bar"><i style="width:${Math.min(100,s/goal*100)}%"></i></div></div>`;
-  }
-  $('#whist').innerHTML=h;
-}
-function addWater(ml){
-  ml=num(ml);if(!ml)return;
-  (D.water[day()]??=[]).push({t:Date.now(),ml});save();renderWater();
-  if(navigator.vibrate)navigator.vibrate(20);
-}
-$$('[data-w]').forEach(b=>b.onclick=()=>addWater(b.dataset.w));
-$('#wadd').onclick=()=>{addWater($('#wcustom').value);$('#wcustom').value=''};
-$('#wundo').onclick=()=>{(D.water[day()]||[]).pop();save();renderWater()};
-
-// ---------- Дневник еды ----------
-const MEALS=['Завтрак','Обед','Ужин','Перекус'];
-function defMeal(){const h=new Date().getHours();return h<11?0:h<16?1:h<21?2:3}
-function renderFood(){
-  const list=D.food[day()]||[];
-  const t=list.reduce((a,x)=>({k:a.k+x.kcal,p:a.p+x.p,f:a.f+x.f,c:a.c+x.c}),{k:0,p:0,f:0,c:0});
-  const goal=D.set.goalKcal, left=goal-t.k;
-  $('#kc').textContent=t.k+' ккал';
-  $('#kcg').textContent=(left>=0?'осталось ':'превышение ')+Math.abs(left)+' из '+goal;
-  $('#kbar').style.width=Math.min(100,t.k/goal*100)+'%';
-  $('#macro').textContent=`Б ${t.p} г · Ж ${t.f} г · У ${t.c} г`;
-  $('#diary').innerHTML=list.length?list.map((x,i)=>`<div class="li"><div><b>${esc(x.name)}</b><div class="mut">${MEALS[x.meal]} · ${x.g} г · Б${x.p} Ж${x.f} У${x.c}</div></div><div style="text-align:right"><b>${x.kcal}</b><br><button class="sec sm" data-del="${i}">Удалить</button></div></div>`).join(''):'<div class="mut">Пока пусто. Снимите тарелку или перекус.</div>';
-  $$('[data-del]').forEach(b=>b.onclick=()=>{D.food[day()].splice(+b.dataset.del,1);save();renderFood()});
-}
-
-// ---------- Сканер еды ----------
-const setStatus=(m,c='in')=>{$('#status').innerHTML=m?`<div class="msg ${c}">${esc(m)}</div>`:''};
-$('#bcam').onclick=()=>$('#fcam').click();
-$('#bgal').onclick=()=>$('#fgal').click();
-$('#fcam').onchange=$('#fgal').onchange=e=>{const f=e.target.files[0];e.target.value='';if(f)scan(f)};
-
-// Сжатие фото до 1024 px по длинной стороне
-function shrink(file){
-  return new Promise((ok,fail)=>{
-    const img=new Image(), url=URL.createObjectURL(file);
-    img.onload=()=>{
-      const k=Math.min(1,1024/Math.max(img.width,img.height));
-      const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);
-      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-      URL.revokeObjectURL(url);ok(c.toDataURL('image/jpeg',.8));
-    };
-    img.onerror=()=>fail(new Error('Не удалось открыть фото'));
-    img.src=url;
-  });
-}
-
-const PROMPT=`Ты нутрициолог. Определи еду на фото и оцени порцию. Ответь СТРОГО JSON без пояснений:
-{"items":[{"name":"название по-русски","grams":число,"kcal":число,"protein":число,"fat":число,"carbs":число}],"confidence":"низкая|средняя|высокая","note":"короткий комментарий или пустая строка"}
-Каждое блюдо или продукт отдельной позицией. Значения kcal, protein, fat, carbs — для всей указанной порции (не на 100 г). Если еды на фото нет, верни пустой items.`;
-
-async function scan(file){
-  $('#result').innerHTML='';
-  if(!navigator.onLine){setStatus('Нет интернета. Для распознавания он нужен.','er');return}
-  try{
-    setStatus('Сжимаю фото…');
-    const img=await shrink(file);
-    setStatus('Отправляю фото на защищённый сервер и распознаю еду…');
-    const r=await fetch('https://vodaeda-api.ra000az.workers.dev/analyze',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({imageDataUrl:img})
-    });
-    const data=await r.json().catch(()=>({}));
-    if(!r.ok){
-      const message=data.error||('Ошибка сервера: '+r.status);
-      setStatus(message,'er');
-      return;
-    }
-    if(!Array.isArray(data.items)){
-      setStatus('Сервер вернул ответ в неожиданном формате.','er');
-      return;
-    }
-    if(!data.items.length){
-      setStatus('Еда на фото не найдена. Попробуйте снять ближе и при хорошем свете.','er');
-      return;
-    }
-    setStatus('');
-    showResult(data);
-  }catch(e){
-    setStatus('Не удалось распознать: '+e.message,'er');
-  }
-}
-
-function showResult(p){
-  const items=p.items.map(x=>({name:x.name,g:num(x.grams),kcal:num(x.kcal),p:num(x.protein),f:num(x.fat),c:num(x.carbs)}));
-  const box=$('#result');
-  box.innerHTML=`<div class="card"><b>Результат</b> <span class="mut">· уверенность: ${esc(p.confidence||'—')}</span>${p.note?`<div class="mut">${esc(p.note)}</div>`:''}
-  <div style="margin-top:10px">${items.map((x,i)=>`<div class="it" data-i="${i}">
-    <input data-k="name" value="${esc(x.name)}">
-    <div class="g5">
-      <div><label>Вес, г</label><input data-k="g" type="number" inputmode="numeric" value="${x.g}"></div>
-      <div><label>Ккал</label><input data-k="kcal" type="number" inputmode="numeric" value="${x.kcal}"></div>
-      <div><label>Белки</label><input data-k="p" type="number" inputmode="numeric" value="${x.p}"></div>
-      <div><label>Жиры</label><input data-k="f" type="number" inputmode="numeric" value="${x.f}"></div>
-    </div>
-    <div class="row" style="margin-top:6px;align-items:end"><div><label>Углеводы</label><input data-k="c" type="number" inputmode="numeric" value="${x.c}"></div><button class="sec sm" data-rm style="flex:0 0 auto">Убрать</button></div>
-  </div>`).join('')}</div>
-  <label for="meal">Приём пищи</label>
-  <select id="meal">${MEALS.map((m,i)=>`<option value="${i}" ${i===defMeal()?'selected':''}>${m}</option>`).join('')}</select>
-  <div class="row" style="margin-top:12px"><button id="rsave">Добавить в дневник</button><button class="sec" id="rcancel" style="flex:0 0 110px">Отмена</button></div></div>`;
-  $$('[data-rm]').forEach(b=>b.onclick=()=>b.closest('.it').remove());
-  $('#rcancel').onclick=()=>box.innerHTML='';
-  $('#rsave').onclick=()=>{
-    const meal=+$('#meal').value;
-    $$('.it').forEach(el=>{
-      const v=k=>el.querySelector(`[data-k=${k}]`).value;
-      (D.food[day()]??=[]).push({t:Date.now(),meal,name:v('name').trim()||'Блюдо',g:num(v('g')),kcal:num(v('kcal')),p:num(v('p')),f:num(v('f')),c:num(v('c'))});
-    });
-    save();box.innerHTML='';renderFood();
-  };
-  box.scrollIntoView({behavior:'smooth'});
-}
-
-// ---------- Вес ----------
-const dec=v=>{const x=parseFloat(String(v).replace(',','.'));return isFinite(x)?x:0};
-const fmt=n=>(Math.round(n*10)/10).toString().replace('.',',');
-const dlabel=d=>new Date(d+'T00:00:00').toLocaleDateString('ru',{day:'numeric',month:'short',year:'2-digit'});
-
-// График: линия веса и пунктир цели
-function kgChart(W,g){
-  if(W.length<2)return '<div class="mut">График появится после двух записей веса.</div>';
-  const w=320,h=150,p=22;
-  const ts=W.map(x=>+new Date(x.d+'T00:00:00')),t0=ts[0],t1=ts[ts.length-1];
-  const ks=W.map(x=>x.kg).concat(g),lo=Math.min(...ks)-1,hi=Math.max(...ks)+1;
-  const X=t=>(p+(t-t0)/((t1-t0)||1)*(w-2*p)).toFixed(1),Y=k=>(h-p-(k-lo)/(hi-lo)*(h-2*p)).toFixed(1);
-  const pts=W.map((x,i)=>X(ts[i])+','+Y(x.kg)).join(' ');
-  return `<svg viewBox="0 0 ${w} ${h}" width="100%"><line x1="${p}" x2="${w-p}" y1="${Y(g)}" y2="${Y(g)}" stroke="var(--ok)" stroke-dasharray="5 4"/><text x="${w-p}" y="${Y(g)-5}" text-anchor="end" font-size="11" fill="var(--ok)">цель ${fmt(g)}</text><polyline points="${pts}" fill="none" stroke="var(--ac)" stroke-width="2.5" stroke-linejoin="round"/>${W.map((x,i)=>`<circle cx="${X(ts[i])}" cy="${Y(x.kg)}" r="3.5" fill="var(--ac)"/>`).join('')}</svg>`;
-}
-
-function renderWeight(){
-  const W=[...D.weight].sort((a,b)=>a.d.localeCompare(b.d));
-  const s=D.set.wStart,g=D.set.wGoal,cur=W.length?W[W.length-1].kg:s;
-  const reached=g<s?cur<=g:cur>=g;
-  const pct=s===g?100:Math.max(0,Math.min(100,(cur-s)/(g-s)*100));
-  $('#kgcur').textContent=fmt(cur)+' кг';
-  $('#kggoal').textContent=fmt(g)+' кг';
-  $('#kgbar').style.width=pct+'%';
-  $('#kgstart').textContent='старт '+fmt(s)+' кг';
-  $('#kgleft').textContent=reached?'цель достигнута 🎉':'осталось '+fmt(Math.abs(cur-g))+' кг';
-  $('#kgchart').innerHTML=kgChart(W,g);
-  // Таблица: новые записи сверху, изменение относительно предыдущей записи
-  const rows=W.map((x,i)=>{
-    const prev=i?W[i-1].kg:s,dl=Math.round((x.kg-prev)*10)/10;
-    const good=g<s?dl<0:dl>0;
-    const dtxt=dl===0?'0':(dl>0?'+':'−')+fmt(Math.abs(dl));
-    return `<div class="li"><div><b>${fmt(x.kg)} кг</b><div class="mut">${dlabel(x.d)}</div></div><div style="text-align:right"><span style="color:${dl===0?'var(--mut)':good?'var(--ok)':'var(--er)'};font-weight:600">${dtxt}</span><br><button class="sec sm" data-kgdel="${x.d}">Удалить</button></div></div>`;
-  }).reverse().join('');
-  $('#kgtable').innerHTML=rows||'<div class="mut">Пока нет записей. Встаньте на весы и запишите вес.</div>';
-  $$('[data-kgdel]').forEach(b=>b.onclick=()=>{D.weight=D.weight.filter(x=>x.d!==b.dataset.kgdel);save();renderWeight()});
-}
-$('#kgdate').value=day();
-$('#kgadd').onclick=()=>{
-  const kg=Math.round(dec($('#kgin').value)*10)/10,d=$('#kgdate').value||day();
-  if(kg<20||kg>400){$('#kgin').focus();return}
-  D.weight=D.weight.filter(x=>x.d!==d);D.weight.push({d,kg}); // одна запись на дату
-  save();$('#kgin').value='';renderWeight();
-};
-
-// ---------- Настройки ----------
-function loadSet(){$('#smodel').value=D.set.model;$('#sgw').value=D.set.goalMl;$('#sgk').value=D.set.goalKcal;$('#skgs').value=fmt(D.set.wStart);$('#skgg').value=fmt(D.set.wGoal)}
-$('#ssave').onclick=()=>{
-  D.set.model=$('#smodel').value.trim()||'gpt-4o-mini';
-  D.set.goalMl=num($('#sgw').value)||2000;D.set.goalKcal=num($('#sgk').value)||2000;D.set.wStart=dec($('#skgs').value)||92;D.set.wGoal=dec($('#skgg').value)||82;
-  save();renderWater();renderFood();renderWeight();$('#ssave').textContent='Сохранено ✓';setTimeout(()=>$('#ssave').textContent='Сохранить',1500);
-};
-$('#bexp').onclick=async()=>{
-  const c={...D,set:{...D.set,key:''}}; // ключ в резервную копию не попадает
-  $('#bk').value=JSON.stringify(c);
-  try{await navigator.clipboard.writeText($('#bk').value);$('#bexp').textContent='Скопировано ✓'}catch(e){$('#bk').select()}
-  setTimeout(()=>$('#bexp').textContent='Экспорт',1500);
-};
-$('#bimp').onclick=()=>{
-  try{
-    const x=JSON.parse($('#bk').value);if(!x.water||!x.food)throw 0;
-    D.water=x.water;D.food=x.food;D.weight=x.weight||D.weight;D.set=Object.assign({},D.set,x.set,{key:D.set.key});
-    save();loadSet();renderTraining();renderWater();renderFood();renderWeight();$('#bimp').textContent='Готово ✓';
-  }catch(e){$('#bimp').textContent='Неверный формат'}
-  setTimeout(()=>$('#bimp').textContent='Импорт',1500);
-};
-
-loadSet();renderTraining();renderWater();renderFood();renderWeight();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{});
-</script>
-</body>
-</html>
+const DAYS=['Понедельник','Среда','Пятница'];
+let selectedDay=0;
+function renderWorkout(){const done=D.checks[today()]||{};$('#workout').innerHTML='<div class="card"><div class="row"><div><h3>'+DAYS[selectedDay]+' · Тренировка '+String.fromCharCode(65+selectedDay)+'</h3><div class="muted small">6 базовых упражнений · около 20–25 минут</div></div><span class="pill">'+Object.values(done).filter(Boolean).length+'/6</span></div><div class="progress"><i style="width:'+Object.values(done).filter(Boolean).length/6*100+'%"></i></div></div>'+EX.map((x,i)=>'<article class="exercise" data-ex="'+i+'"><div class="exhead"><div class="art"><svg viewBox="0 0 64 76" aria-label="Иллюстрация упражнения"><g fill="none" stroke="#079eaa" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">'+x.pose+'</g></svg></div><div style="flex:1"><div class="exname">'+(i+1)+'. '+x.name+'</div><div class="dose">'+x.dose+'</div><div class="muted small">'+x.focus+'</div></div><span style="color:var(--teal)">⌄</span></div><div class="exbody"><p><b>Как выполнять:</b></p><ol>'+x.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><p><b>Важно:</b> '+x.tip+'</p><label class="done"><input type="checkbox" data-check="'+i+'" '+(done[i]?'checked':'')+'> Выполнено</label></div></article>').join('')+'<div class="notice">Перед началом спокойно походи 3–5 минут. При боли, головокружении или необычной одышке остановись. При заболеваниях спины или коленей согласуй упражнения со специалистом.</div>'}
+$$('[data-day]').forEach(b=>b.onclick=()=>{selectedDay=+b.dataset.day;$$('[data-day]').forEach(x=>x.classList.toggle('active',x===b));renderWorkout()});
+$('#workout').addEventListener('click',e=>{const head=e.target.closest('.exhead');if(head)head.closest('.exercise').classList.toggle('open')});
+$('#workout').addEventListener('change',e=>{if(e.target.matches('[data-check]')){D.checks[today()]=D.checks[today()]||{};D.checks[today()][e.target.dataset.check]=e.target.checked;save();renderWorkout()}});
+function waterSum(d=today()){return (D.water[d]||[]).reduce((a,x)=>a+x,0)}
+function renderWater(){const n=waterSum(),g=D.settings.water;$('#waterTotal').textContent=n;$('#waterGoal').textContent='из '+g.toLocaleString('ru')+' мл';$('#waterArc').style.strokeDashoffset=515*(1-Math.min(1,n/g));$('#waterHistory').innerHTML=Array.from({length:7},(_,i)=>{let d=new Date();d.setDate(d.getDate()-i);let k=d.toLocaleDateString('sv'),v=waterSum(k);return '<div class="historyrow"><span>'+ (i?' '+d.toLocaleDateString('ru',{weekday:'short',day:'numeric',month:'short'}):'Сегодня')+'</span><b>'+v+' мл</b></div>'}).join('')}
+function addWater(n){if(!n||n<1)return;(D.water[today()]??=[]).push(Math.round(n));save();renderWater();renderHome()}
+$$('[data-water]').forEach(b=>b.onclick=()=>addWater(+b.dataset.water));$('#waterAdd').onclick=()=>{addWater(+$('#waterCustom').value);$('#waterCustom').value=''};$('#waterUndo').onclick=()=>{D.water[today()]?.pop();save();renderWater();renderHome()};
+function totals(){return (D.food[today()]||[]).reduce((a,x)=>({k:a.k+x.k,p:a.p+x.p,f:a.f+x.f,c:a.c+x.c}),{k:0,p:0,f:0,c:0})}
+function renderFood(){let t=totals(),g=D.settings.kcal;$('#foodKcal').textContent=t.k+' ккал';$('#foodRemain').textContent=(g-t.k>=0?'осталось ':'сверх цели ')+Math.abs(g-t.k)+' ккал';$('#foodBar').style.width=Math.min(100,t.k/g*100)+'%';$('#macros').textContent='Б '+t.p+' г · Ж '+t.f+' г · У '+t.c+' г';$('#foodDiary').innerHTML=(D.food[today()]||[]).length?D.food[today()].map((x,i)=>'<div class="foodrow"><div><b>'+x.name.replace(/[<>&"]/g,'')+'</b><div class="muted small">'+x.meal+' · Б '+x.p+' · Ж '+x.f+' · У '+x.c+'</div></div><div style="text-align:right"><b>'+x.k+' ккал</b><button class="ghost" data-del="'+i+'">Удалить</button></div></div>').join(''):'<div class="muted">Пока пусто. Добавь блюдо вручную или сними тарелку.</div>'}
+$('#foodDiary').addEventListener('click',e=>{let b=e.target.closest('[data-del]');if(b){D.food[today()].splice(+b.dataset.del,1);save();renderFood();renderHome()}});
+function addFood(x){(D.food[today()]??=[]).push(x);save();renderFood();renderHome()}
+$('#manualAdd').onclick=()=>{let name=$('#manualName').value.trim();if(!name){$('#manualName').focus();return}addFood({name,k:+$('#manualKcal').value||0,p:+$('#manualP').value||0,f:+$('#manualF').value||0,c:+$('#manualC').value||0,meal:$('#manualMeal').value});['manualName','manualKcal','manualP','manualF','manualC'].forEach(id=>$('#'+id).value='')};
+$('#takePhoto').onclick=()=>$('#photoCamera').click();$('#choosePhoto').onclick=()=>$('#photoGallery').click();
+$('#photoCamera').onchange=$('#photoGallery').onchange=async e=>{let file=e.target.files[0];e.target.value='';if(!file)return;$('#scanStatus').innerHTML='<div class="notice">Распознаю фото…</div>';try{let im=await new Promise((ok,no)=>{let a=new Image(),u=URL.createObjectURL(file);a.onload=()=>{let c=document.createElement('canvas'),s=Math.min(1,1000/Math.max(a.width,a.height));c.width=a.width*s;c.height=a.height*s;c.getContext('2d').drawImage(a,0,0,c.width,c.height);URL.revokeObjectURL(u);ok(c.toDataURL('image/jpeg',.8))};a.onerror=no;a.src=u});let r=await fetch('https://vodaeda-api.ra000az.workers.dev/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({imageDataUrl:im})});let d=await r.json();if(!r.ok)throw Error(d.error||'Ошибка сервера');if(!Array.isArray(d.items)||!d.items.length)throw Error('Еда на фото не найдена');$('#scanStatus').innerHTML='';$('#scanResult').innerHTML='<div class="card"><h3>Распознано — проверь порции</h3>'+d.items.map((x,i)=>'<div class="foodrow"><div><b>'+x.name+'</b><div class="muted small">'+x.grams+' г · '+x.kcal+' ккал</div></div><button data-scanadd="'+i+'">Добавить</button></div>').join('')+'</div>';$('#scanResult').dataset.items=JSON.stringify(d.items)}catch(err){$('#scanStatus').innerHTML='<div class="notice">'+err.message+'</div>'}};
+$('#scanResult').addEventListener('click',e=>{let b=e.target.closest('[data-scanadd]');if(!b)return;let x=JSON.parse($('#scanResult').dataset.items)[+b.dataset.scanadd];addFood({name:x.name,k:x.kcal||0,p:x.protein||0,f:x.fat||0,c:x.carbs||0,meal:'Перекус'});b.textContent='Добавлено';b.disabled=true});
+$('#weightDate').value=today();function renderWeight(){let W=[...D.weights].sort((a,b)=>a.d.localeCompare(b.d)),cur=W.length?W[W.length-1].v:null,g=D.settings.target;$('#weightCurrent').textContent=cur===null?'— кг':cur.toFixed(1).replace('.',',')+' кг';$('#weightTarget').textContent=g+' кг';$('#weightProgress').style.width=W.length?Math.max(0,Math.min(100,(W[0].v-cur)/(W[0].v-g)*100))+'%':'0%';$('#weightHistory').innerHTML=W.slice().reverse().map(x=>'<div class="historyrow"><span>'+new Date(x.d+'T00:00:00').toLocaleDateString('ru',{day:'numeric',month:'short',year:'numeric'})+'</span><b>'+x.v.toFixed(1).replace('.',',')+' кг</b></div>').join('')||'<p class="muted">Записей пока нет.</p>';let svg=$('#weightChart');if(W.length<2){svg.innerHTML='<text x="160" y="90" text-anchor="middle" fill="#6d8792" font-size="13">График появится после двух записей</text>';return}let vals=W.map(x=>x.v),lo=Math.min(...vals)-1,hi=Math.max(...vals)+1,pts=vals.map((v,i)=>(20+i*280/(vals.length-1))+','+(150-(v-lo)/(hi-lo)*125)).join(' ');svg.innerHTML='<polyline points="'+pts+'" fill="none" stroke="#079eaa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'+vals.map((v,i)=>'<circle cx="'+(20+i*280/(vals.length-1))+'" cy="'+(150-(v-lo)/(hi-lo)*125)+'" r="4" fill="#079eaa"/>').join('')}
+$('#weightSave').onclick=()=>{let v=+$('#weightInput').value,d=$('#weightDate').value||today();if(v<30||v>300){$('#weightInput').focus();return}D.weights=D.weights.filter(x=>x.d!==d);D.weights.push({d,v});save();$('#weightInput').value='';renderWeight();renderHome()};
+$('#saveSettings').onclick=()=>{D.settings.water=Math.max(250,+$('#goalWater').value||2000);D.settings.kcal=Math.max(500,+$('#goalKcal').value||2000);D.settings.target=+$('#goalWeight').value||82;save();renderAll();alert('Настройки сохранены')};
+function renderHome(){let t=totals(),w=waterSum(),last=[...D.weights].sort((a,b)=>a.d.localeCompare(b.d)).at(-1);$('#homeKcal').textContent=t.k;$('#homeKcalBar').style.width=Math.min(100,t.k/D.settings.kcal*100)+'%';$('#homeWater').textContent=w+' мл';$('#homeWaterBar').style.width=Math.min(100,w/D.settings.water*100)+'%';$('#homeWeight').textContent=last?last.v.toFixed(1).replace('.',',')+' кг':'— кг';$('#homeMacros').textContent='Б '+t.p+' г · Ж '+t.f+' г · У '+t.c+' г';let d=new Date().getDay();$('#nextWorkout').textContent=d===1?'Сегодня · Понедельник':d===3?'Сегодня · Среда':d===5?'Сегодня · Пятница':d<3?'Понедельник · комплекс A':d<5?'Среда · комплекс B':'Пятница · комплекс C'}
+function renderAll(){renderHome();renderWater();renderFood();renderWeight();$('#goalWater').value=D.settings.water;$('#goalKcal').value=D.settings.kcal;$('#goalWeight').value=D.settings.target}
+renderAll();renderWorkout();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{});
+</script></body></html>
