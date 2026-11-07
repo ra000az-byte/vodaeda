@@ -39,6 +39,22 @@ label{display:block;font-size:14px;color:var(--mut);margin:10px 0 4px}
 .bar{height:8px;border-radius:4px;background:var(--ln);overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--ac)}
 .food i{background:var(--ac2)}
 .it{border:1px solid var(--ln);border-radius:12px;padding:10px;margin-bottom:10px}
+.training-day{margin-bottom:14px}
+.training-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.exercise{border:1px solid var(--ln);border-radius:14px;padding:12px;margin-top:10px;background:var(--bg)}
+.exercise-top{display:flex;gap:12px;align-items:center}
+.exercise-art{width:104px;height:92px;flex:0 0 104px;border-radius:12px;background:var(--card);display:flex;align-items:center;justify-content:center}
+.exercise-art svg{width:100%;height:100%}
+.exercise-title{font-weight:700;font-size:16px}
+.exercise-dose{color:var(--ac);font-weight:700;font-size:14px;margin-top:4px}
+.exercise-detail{margin-top:10px;font-size:14px}
+.exercise-detail ol{padding-left:20px;margin:6px 0}
+.exercise-detail li{margin:5px 0}
+.exercise-tip{margin-top:8px;padding:8px 10px;border-radius:10px;background:var(--card);font-size:13px}
+.exercise-check{display:flex;align-items:center;gap:9px;margin-top:10px;padding-top:9px;border-top:1px solid var(--ln);font-size:14px}
+.exercise-check input{width:22px;min-height:22px;flex:0 0 22px}
+.training-note{font-size:13px;color:var(--mut);line-height:1.45}
+
 .g5{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .g5 label{margin:6px 0 2px;font-size:12px}
 .msg{padding:10px;border-radius:10px;margin:10px 0;font-size:15px}
@@ -178,31 +194,23 @@ $('nav button').forEach(b=>b.onclick=()=>{
 });
 
 // ---------- Тренировки ----------
+const EXERCISES={
+  wallPush:{name:'Отжимания от стены',dose:'2 подхода × 8–12 повторений',art:'push',steps:['Встань лицом к стене на расстоянии вытянутых рук. Ладони поставь на стену на уровне груди, чуть шире плеч.','Согни локти и медленно приблизь грудь к стене. Тело держи прямой линией, пятки не отрывай.','Плавно оттолкнись от стены и вернись в исходное положение.'],breath:'Вдыхай, когда приближаешься к стене; выдыхай, когда отталкиваешься.',avoid:'Не прогибай поясницу, не поднимай плечи к ушам и не делай движение рывком.',focus:'Грудь, плечи и руки'},
+  bridge:{name:'Ягодичный мостик',dose:'2 подхода × 8–10 повторений',art:'bridge',steps:['Ляг на спину, согни ноги, стопы поставь на пол примерно на ширине таза. Руки лежат вдоль тела.','Слегка напряги живот и ягодицы. Медленно подними таз до комфортной высоты.','Задержись на 1–2 секунды и плавно опусти таз на пол.'],breath:'Выдыхай при подъёме таза, вдыхай при опускании.',avoid:'Не прогибай поясницу и не старайся поднять таз как можно выше. Движение небольшое и контролируемое.',focus:'Ягодицы и мышцы задней поверхности бедра'},
+  bird:{name:'Птица-собака',dose:'2 подхода × 5–6 раз на каждую сторону',art:'bird',steps:['Встань на четвереньки: ладони под плечами, колени под тазом. Спина ровная.','Медленно вытягивай вперёд одну руку и одновременно назад противоположную ногу. Не поднимай их выше корпуса.','Удерживай положение 2–3 секунды, вернись и поменяй сторону. Если сложно, сначала двигай только рукой или только ногой.'],breath:'Дыши спокойно, не задерживай дыхание.',avoid:'Не раскачивай таз, не прогибай поясницу и не запрокидывай голову.',focus:'Мышцы корпуса, ягодицы и мышцы спины'},
+  clam:{name:'Ракушка лёжа на боку',dose:'2 подхода × 10 повторений на сторону',art:'clam',steps:['Ляг на бок, согни ноги, колени держи вместе. Голова удобно лежит на руке.','Не разворачивая таз назад, медленно подними верхнее колено. Стопы остаются вместе.','Плавно опусти колено. Сделай повторения и перевернись на другой бок.'],breath:'Выдыхай при подъёме колена, вдыхай при опускании.',avoid:'Не заваливай таз назад и не раскрывай движение через силу.',focus:'Боковая поверхность ягодиц и мышцы таза'},
+  calf:{name:'Подъёмы на носки у опоры',dose:'2 подхода × 10–12 повторений',art:'calf',steps:['Встань лицом к стене или устойчивому стулу, легко придерживайся руками. Стопы параллельны.','Медленно поднимись на носки, распределяя вес между большим пальцем и остальными пальцами стопы.','Задержись на секунду и плавно опустись.'],breath:'Выдыхай при подъёме, вдыхай при опускании.',avoid:'Не пружинь, не заваливай стопы наружу и не переноси весь вес на руки.',focus:'Икроножные мышцы и устойчивость голеностопа'},
+  brace:{name:'Мягкое напряжение живота лёжа',dose:'5–6 повторов по 5–8 секунд',art:'brace',steps:['Ляг на спину, согни колени, стопы поставь на пол. Поясница в естественном удобном положении.','Представь, что мягко застёгиваешь тесные брюки: слегка напряги низ живота, не втягивая его изо всех сил.','Удерживай лёгкое напряжение 5–8 секунд, продолжая спокойно дышать, затем полностью расслабься.'],breath:'Дыши непрерывно. Не задерживай дыхание.',avoid:'Не дави поясницей в пол и не напрягайся до дрожи.',focus:'Глубокие мышцы живота'},
+  wallSlide:{name:'Скольжение руками по стене',dose:'2 подхода × 8–10 повторений',art:'slide',steps:['Встань спиной к стене. Прижми к ней верхнюю часть спины, не выгибая поясницу.','Поставь руки на стену согнутыми в локтях, насколько удобно.','Медленно скользи руками вверх, затем опускай вниз. Амплитуда — только без боли и дискомфорта.'],breath:'Дыши ровно на протяжении всего движения.',avoid:'Не прогибай поясницу и не поднимай плечи к ушам.',focus:'Подвижность плеч и верхней части спины'},
+  heel:{name:'Скольжение пяткой лёжа',dose:'2 подхода × 8 повторений на каждую ногу',art:'heel',steps:['Ляг на спину, обе ноги согнуты, стопы на полу.','Медленно скользи одной пяткой вперёд, постепенно выпрямляя ногу настолько, насколько удобно.','Верни пятку обратно и повтори другой ногой. Таз остаётся неподвижным.'],breath:'Выдыхай, когда выпрямляешь ногу; вдыхай, когда возвращаешь.',avoid:'Не выгибай поясницу и не выпрямляй колено через неприятные ощущения.',focus:'Контроль мышц живота и движение ноги'},
+  hip:{name:'Отведение ноги в сторону стоя',dose:'2 подхода × 8–10 повторений на сторону',art:'hip',steps:['Встань боком к устойчивой опоре и держись за неё одной рукой. Корпус вертикальный.','Медленно отведи прямую ногу в сторону на небольшое расстояние, носок направлен вперёд.','Верни ногу обратно, не бросая её. Выполни на обе стороны.'],breath:'Выдыхай при отведении ноги, вдыхай при возвращении.',avoid:'Не наклоняй корпус в сторону и не разворачивай носок к потолку.',focus:'Боковая поверхность ягодиц и мышцы таза'},
+  knee:{name:'Разгибание колена сидя',dose:'2 подхода × 8–10 повторений на сторону',art:'knee',steps:['Сядь на устойчивый стул, спина опирается или находится в нейтральном положении. Стопы на полу.','Медленно выпрями одну ногу в колене до комфортного положения. Не нужно обязательно распрямлять её до конца.','Задержись на секунду и плавно опусти стопу. Повтори другой ногой.'],breath:'Выдыхай при выпрямлении, вдыхай при опускании.',avoid:'Не раскачивай корпус и не делай резких движений.',focus:'Передняя поверхность бедра'},
+  march:{name:'Марш сидя на стуле',dose:'2 подхода × 8–10 подъёмов каждой ноги',art:'march',steps:['Сядь ближе к переднему краю устойчивого стула. Стопы на полу, корпус ровный.','Поочерёдно приподнимай одну стопу на несколько сантиметров, словно шагаешь на месте.','Опускай стопу мягко и меняй ногу. Двигайся медленно.'],breath:'Дыши свободно, не задерживай дыхание.',avoid:'Не раскачивайся и не поднимай колено высоко.',focus:'Мышцы бёдер и контроль корпуса'}
+};
 const TRAINING=[
-  {key:'mon',name:'Понедельник',title:'Тренировка А',items:[
-    ['Отжимания от стены','2 × 8–12'],
-    ['Ягодичный мостик','2 × 10'],
-    ['Птица-собака','2 × 6 на сторону'],
-    ['Отведение ноги в сторону стоя','2 × 10 на сторону'],
-    ['Подъёмы на носки у опоры','2 × 12'],
-    ['Мягкое напряжение мышц живота лёжа','5 × 10 секунд']
-  ]},
-  {key:'wed',name:'Среда',title:'Тренировка Б',items:[
-    ['Скольжение руками по стене','2 × 10'],
-    ['Ракушка лёжа на боку','2 × 10 на сторону'],
-    ['Скольжение пяткой лёжа','2 × 8 на сторону'],
-    ['Отведение ноги назад стоя у опоры','2 × 10 на сторону'],
-    ['Разгибание колена сидя без веса','2 × 10 на сторону'],
-    ['Подъёмы на носки у опоры','2 × 12']
-  ]},
-  {key:'fri',name:'Пятница',title:'Тренировка В',items:[
-    ['Отжимания от стены','2 × 8–12'],
-    ['Ягодичный мостик','2 × 10'],
-    ['Птица-собака','2 × 6 на сторону'],
-    ['Ракушка лёжа на боку','2 × 10 на сторону'],
-    ['Марш сидя на стуле','2 × 10 на сторону'],
-    ['Мягкое напряжение мышц живота лёжа','5 × 10 секунд']
-  ]}
+  {key:'mon',name:'Понедельник',title:'Тренировка А',items:['wallPush','bridge','bird','clam','calf','brace']},
+  {key:'wed',name:'Среда',title:'Тренировка Б',items:['wallSlide','heel','hip','knee','march','calf']},
+  {key:'fri',name:'Пятница',title:'Тренировка В',items:['wallPush','bridge','bird','clam','march','brace']}
 ];
 function weekMonday(){
   const d=new Date();d.setHours(0,0,0,0);
@@ -210,26 +218,36 @@ function weekMonday(){
   d.setDate(d.getDate()-((dow+6)%7)+(dow===0||dow===6?7:0));
   return d;
 }
+function exerciseArt(type){
+  const common='<circle cx="50" cy="15" r="7" fill="none" stroke="var(--ac)" stroke-width="3"/>';
+  const line='stroke="var(--tx)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"';
+  const poses={
+    push:'<path '+line+' d="M12 65H88M43 29L62 43L78 43M62 43L54 62M62 43L76 60M78 43L87 32"/>',
+    bridge:'<path '+line+' d="M10 72H90M18 66L35 58L57 58L72 70M35 58L38 72M57 58L66 72"/>',
+    bird:'<path '+line+' d="M22 58L48 48L67 55L83 55M48 48L38 68M67 55L78 72M48 48L30 37M67 55L87 43"/>',
+    clam:'<path '+line+' d="M15 70L42 60L70 65L87 70M42 60L50 38L76 49M42 60L50 70"/>',
+    calf:'<path '+line+' d="M48 26L48 48L39 68M48 48L57 68M39 68L35 73M57 68L62 73M72 30V72M68 72H76"/>',
+    brace:'<path '+line+' d="M12 70H88M25 65L42 55L62 55L76 68M42 55L40 70M62 55L66 70"/>',
+    slide:'<path '+line+' d="M50 25V57M50 34L27 12M50 34L73 12M50 57L37 76M50 57L63 76"/>',
+    heel:'<path '+line+' d="M12 72H88M22 66L43 56L61 59L78 68M43 56L39 70M61 59L80 59"/>',
+    hip:'<path '+line+' d="M50 25V52M50 34L35 45M50 34L65 45M50 52L38 72M50 52L78 60M72 30V74"/>',
+    knee:'<path '+line+' d="M42 30V50L58 53L75 67M42 50L34 69M72 67H82"/>',
+    march:'<path '+line+' d="M43 28V48L30 63M43 48L59 48L72 62M59 48L66 31M43 48L35 31"/>'
+  };
+  return '<svg viewBox="0 0 100 90" role="img" aria-label="Схематичная иллюстрация упражнения">'+common+(poses[type]||poses.push)+'</svg>';
+}
 function renderTraining(){
   const monday=weekMonday();
-  const html=TRAINING.map((w,i)=>{
+  $('#training-list').innerHTML='<div class="card training-note">Начни с 3–5 минут спокойной ходьбы по комнате. Между подходами отдыхай 45–90 секунд. Первую неделю можно сделать только по одному подходу, чтобы освоить движения. Не тренируйся через боль.</div>'+TRAINING.map((w,i)=>{
     const date=new Date(monday);date.setDate(monday.getDate()+[0,2,4][i]);
     const key=date.toLocaleDateString('sv');
     const done=D.training[key]||{};
     const count=w.items.filter((_,j)=>done[j]).length;
-    return `<div class="card">
-      <div class="row" style="align-items:center">
-        <div><b>${w.name} · ${w.title}</b><div class="mut">${date.toLocaleDateString('ru',{day:'numeric',month:'long'})}</div></div>
-        <b style="white-space:nowrap">${count}/6</b>
-      </div>
-      <div class="bar"><i style="width:${count/6*100}%"></i></div>
-      <div style="margin-top:8px">${w.items.map((item,j)=>`<label style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--ln);margin:0;color:var(--tx)">
-        <input type="checkbox" data-training-date="${key}" data-training-index="${j}" ${done[j]?'checked':''} style="width:22px;min-height:22px;flex:0 0 22px">
-        <span style="flex:1">${item[0]}<small class="mut" style="display:block">${item[1]}</small></span>
-      </label>`).join('')}</div>
-    </div>`;
+    return '<div class="card training-day"><div class="training-head"><div><b>'+w.name+' · '+w.title+'</b><div class="mut">'+date.toLocaleDateString('ru',{day:'numeric',month:'long'})+'</div></div><b>'+count+'/6</b></div><div class="bar"><i style="width:'+(count/6*100)+'%"></i></div>'+w.items.map((id,j)=>{
+      const x=EXERCISES[id];
+      return '<div class="exercise"><div class="exercise-top"><div class="exercise-art">'+exerciseArt(x.art)+'</div><div><div class="exercise-title">'+x.name+'</div><div class="exercise-dose">'+x.dose+'</div><div class="mut">'+x.focus+'</div></div></div><div class="exercise-detail"><b>Как выполнять</b><ol>'+x.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><div class="exercise-tip"><b>Дыхание:</b> '+x.breath+'</div><div class="exercise-tip"><b>Важно:</b> '+x.avoid+'</div></div><label class="exercise-check"><input type="checkbox" data-training-date="'+key+'" data-training-index="'+j+'" '+(done[j]?'checked':'')+'> Выполнено</label></div>';
+    }).join('')+'</div>';
   }).join('');
-  $('#training-list').innerHTML=html;
 }
 $('#training-list').addEventListener('change',e=>{
   const el=e.target;
