@@ -206,7 +206,8 @@ const TRAINING=[
 ];
 function weekMonday(){
   const d=new Date();d.setHours(0,0,0,0);
-  d.setDate(d.getDate()-((d.getDay()+6)%7));
+  const dow=d.getDay();
+  d.setDate(d.getDate()-((dow+6)%7)+(dow===0||dow===6?7:0));
   return d;
 }
 function renderTraining(){
