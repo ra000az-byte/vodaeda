@@ -186,7 +186,7 @@ const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 const num=v=>Math.max(0,Math.round(parseFloat(v)||0));
 
 // ---------- Вкладки ----------
-$('nav button').forEach(b=>b.onclick=()=>{
+$$('nav button').forEach(b=>b.onclick=()=>{
   $$('nav button').forEach(x=>x.classList.toggle('on',x===b));
   $('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.tab));
   if(b.dataset.tab==='training')renderTraining();
