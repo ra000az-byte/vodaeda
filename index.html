@@ -186,8 +186,10 @@ const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 const num=v=>Math.max(0,Math.round(parseFloat(v)||0));
 
 // ---------- Вкладки ----------
-$$('nav button').forEach(b=>b.onclick=()=>{
-  $$('nav button').forEach(x=>x.classList.toggle('on',x===b));
+document.addEventListener('click',e=>{
+  const b=e.target.closest('nav button[data-tab]');
+  if(!b)return;
+  $('nav button').forEach(x=>x.classList.toggle('on',x===b));
   $('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.tab));
   if(b.dataset.tab==='training')renderTraining();
   window.scrollTo(0,0);
@@ -471,7 +473,7 @@ $('#bimp').onclick=()=>{
 };
 
 loadSet();renderTraining();renderWater();renderFood();renderWeight();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').then(r=>r.update()).catch(()=>{});
 </script>
 </body>
 </html>
