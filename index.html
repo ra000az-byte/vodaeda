@@ -53,7 +53,17 @@ nav span{display:block;font-size:22px}
 <body>
 <main>
 
-<section class="tab on" id="t-water">
+
+<section class="tab on" id="t-training">
+  <h1>Тренировки</h1>
+  <div class="card">
+    <b>План на неделю</b>
+    <div class="mut" style="margin-top:4px">Три лёгкие тренировки. Выполняй движения спокойно, без рывков и через комфортную амплитуду. Если появляется боль — остановись.</div>
+  </div>
+  <div id="training-list"></div>
+</section>
+
+<section class="tab" id="t-water">
   <h1>Вода</h1>
   <div class="card">
     <div class="ring">
@@ -135,20 +145,24 @@ nav span{display:block;font-size:22px}
 
 </main>
 <nav>
-  <button class="on" data-tab="water"><span>💧</span>Вода</button>
+  <button class="on" data-tab="training"><span>🏃</span>Тренировки</button>
+  <button data-tab="water"><span>💧</span>Вода</button>
   <button data-tab="food"><span>🍽</span>Еда</button>
   <button data-tab="weight"><span>⚖️</span>Вес</button>
   <button data-tab="set"><span>⚙️</span>Настройки</button>
 </nav>
 
+
+
 <script>
 // ---------- Хранилище ----------
 const KEY='vodaeda.v1';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const def={water:{},food:{},weight:[],set:{key:'',model:'gpt-4o-mini',goalMl:2000,goalKcal:2000,wStart:92,wGoal:82}};
+const def={water:{},food:{},weight:[],training:{},set:{key:'',model:'gpt-4o-mini',goalMl:2000,goalKcal:2000,wStart:92,wGoal:82}};
 let D;
 try{D=Object.assign({},def,JSON.parse(localStorage.getItem(KEY)||'{}'));D.set=Object.assign({},def.set,D.set)}catch(e){D=JSON.parse(JSON.stringify(def))}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(D))}catch(e){}};
+D.training=D.training||{};
 // Старый ключ больше не нужен: запросы идут через защищённый Worker.
 if(D.set.key){D.set.key='';save()}
 const day=(d=new Date())=>d.toLocaleDateString('sv');
@@ -156,10 +170,73 @@ const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 const num=v=>Math.max(0,Math.round(parseFloat(v)||0));
 
 // ---------- Вкладки ----------
-$$('nav button').forEach(b=>b.onclick=()=>{
+$('nav button').forEach(b=>b.onclick=()=>{
   $$('nav button').forEach(x=>x.classList.toggle('on',x===b));
-  $$('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.tab));
+  $('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.tab));
+  if(b.dataset.tab==='training')renderTraining();
   window.scrollTo(0,0);
+});
+
+// ---------- Тренировки ----------
+const TRAINING=[
+  {key:'mon',name:'Понедельник',title:'Тренировка А',items:[
+    ['Отжимания от стены','2 × 8–12'],
+    ['Ягодичный мостик','2 × 10'],
+    ['Птица-собака','2 × 6 на сторону'],
+    ['Отведение ноги в сторону стоя','2 × 10 на сторону'],
+    ['Подъёмы на носки у опоры','2 × 12'],
+    ['Мягкое напряжение мышц живота лёжа','5 × 10 секунд']
+  ]},
+  {key:'wed',name:'Среда',title:'Тренировка Б',items:[
+    ['Скольжение руками по стене','2 × 10'],
+    ['Ракушка лёжа на боку','2 × 10 на сторону'],
+    ['Скольжение пяткой лёжа','2 × 8 на сторону'],
+    ['Отведение ноги назад стоя у опоры','2 × 10 на сторону'],
+    ['Разгибание колена сидя без веса','2 × 10 на сторону'],
+    ['Подъёмы на носки у опоры','2 × 12']
+  ]},
+  {key:'fri',name:'Пятница',title:'Тренировка В',items:[
+    ['Отжимания от стены','2 × 8–12'],
+    ['Ягодичный мостик','2 × 10'],
+    ['Птица-собака','2 × 6 на сторону'],
+    ['Ракушка лёжа на боку','2 × 10 на сторону'],
+    ['Марш сидя на стуле','2 × 10 на сторону'],
+    ['Мягкое напряжение мышц живота лёжа','5 × 10 секунд']
+  ]}
+];
+function weekMonday(){
+  const d=new Date();d.setHours(0,0,0,0);
+  d.setDate(d.getDate()-((d.getDay()+6)%7));
+  return d;
+}
+function renderTraining(){
+  const monday=weekMonday();
+  const html=TRAINING.map((w,i)=>{
+    const date=new Date(monday);date.setDate(monday.getDate()+[0,2,4][i]);
+    const key=date.toLocaleDateString('sv');
+    const done=D.training[key]||{};
+    const count=w.items.filter((_,j)=>done[j]).length;
+    return `<div class="card">
+      <div class="row" style="align-items:center">
+        <div><b>${w.name} · ${w.title}</b><div class="mut">${date.toLocaleDateString('ru',{day:'numeric',month:'long'})}</div></div>
+        <b style="white-space:nowrap">${count}/6</b>
+      </div>
+      <div class="bar"><i style="width:${count/6*100}%"></i></div>
+      <div style="margin-top:8px">${w.items.map((item,j)=>`<label style="display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--ln);margin:0;color:var(--tx)">
+        <input type="checkbox" data-training-date="${key}" data-training-index="${j}" ${done[j]?'checked':''} style="width:22px;min-height:22px;flex:0 0 22px">
+        <span style="flex:1">${item[0]}<small class="mut" style="display:block">${item[1]}</small></span>
+      </label>`).join('')}</div>
+    </div>`;
+  }).join('');
+  $('#training-list').innerHTML=html;
+}
+$('#training-list').addEventListener('change',e=>{
+  const el=e.target;
+  if(!el.matches('[data-training-date]'))return;
+  const d=el.dataset.trainingDate,i=el.dataset.trainingIndex;
+  D.training[d]=D.training[d]||{};
+  D.training[d][i]=el.checked;
+  save();renderTraining();
 });
 
 // ---------- Вода ----------
@@ -350,7 +427,7 @@ $('#bimp').onclick=()=>{
   try{
     const x=JSON.parse($('#bk').value);if(!x.water||!x.food)throw 0;
     D.water=x.water;D.food=x.food;D.weight=x.weight||D.weight;D.set=Object.assign({},D.set,x.set,{key:D.set.key});
-    save();loadSet();renderWater();renderFood();renderWeight();$('#bimp').textContent='Готово ✓';
+    save();loadSet();renderTraining();renderWater();renderFood();renderWeight();$('#bimp').textContent='Готово ✓';
   }catch(e){$('#bimp').textContent='Неверный формат'}
   setTimeout(()=>$('#bimp').textContent='Импорт',1500);
 };
