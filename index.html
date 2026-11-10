@@ -45,7 +45,7 @@ const today=()=>new Date().toLocaleDateString('sv');
 const fresh={water:{},food:{},meals:{},weights:[],checks:{},settings:{water:2000,kcal:2000,target:82}};
 let D;try{D=JSON.parse(localStorage.getItem(KEY))||structuredClone(fresh)}catch{D=JSON.parse(JSON.stringify(fresh))}
 D.meals=D.meals||{};const save=()=>localStorage.setItem(KEY,JSON.stringify(D)),fmt=n=>Math.round(Number(n)||0);
-function macroMarkup(t){return '<div class="macro-strip"><div class="macro-chip"><b>'+fmt(t.p)+' г</b><span>БЕЛКИ</span></div><div class="macro-chip"><b>'+fmt(t.f)+' г</b><span>ЖИРЫ</span></div><div class="macro-chip"><b>'+fmt(t.c)+' г</b><span>УГЛЕВОДЫ</span></div></div>}
+function macroMarkup(t){return '<div class="macro-strip"><div class="macro-chip"><b>'+fmt(t.p)+' г</b><span>БЕЛКИ</span></div><div class="macro-chip"><b>'+fmt(t.f)+' г</b><span>ЖИРЫ</span></div><div class="macro-chip"><b>'+fmt(t.c)+' г</b><span>УГЛЕВОДЫ</span></div></div>'}
 function go(id){$$('.screen').forEach(x=>x.classList.toggle('active',x.id===id));$$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.go===id));window.scrollTo(0,0);if(id==='training')renderWorkout();if(id==='water')renderWater();if(id==='food')renderFood();if(id==='weight')renderWeight()}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(b)go(b.dataset.go)});
 $('#today').textContent=new Date().toLocaleDateString('ru',{weekday:'long',day:'numeric',month:'long'});
