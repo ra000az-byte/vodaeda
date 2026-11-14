@@ -331,10 +331,11 @@ let selectedCatalogFoodNameForNotice='';
 let catalogPendingIndex=null;
 function openFoodPickerForPending(index){
   if(!Number.isInteger(index)||!pendingScanItems[index])return;
-  catalogPendingIndex=index;
   openFoodPicker();
+  catalogPendingIndex=index;
 }
 function openFoodPicker(){
+  catalogPendingIndex=null;
   selectedCatalogFood=null;catalogCategory='Все';
   $('#foodCatalogSearch').value='';
   $('#foodCatalogSelection').innerHTML='<div class="catalog-selection-empty">Выбери продукт из списка выше</div>';
@@ -344,7 +345,7 @@ function openFoodPicker(){
   renderFoodCatalog();
   $('#foodCatalogSearch').focus();
 }
-function closeFoodPicker(){document.body.style.overflow=$('#foodPicker').dataset.previousOverflow||'';$('#foodPicker').hidden=true;selectedCatalogFood=null}
+function closeFoodPicker(){document.body.style.overflow=$('#foodPicker').dataset.previousOverflow||'';$('#foodPicker').hidden=true;selectedCatalogFood=null;catalogPendingIndex=null}
 $('#openFoodPicker').addEventListener('click',openFoodPicker);
 $('#foodPickerClose').addEventListener('click',closeFoodPicker);
 $('#foodPicker').addEventListener('click',e=>{if(e.target===$('#foodPicker'))closeFoodPicker()});
@@ -466,16 +467,24 @@ async function analyzeFoodPhoto(file){
       const catalogItem=catalogId?FOOD_CATALOG.find(product=>product.id===catalogId):null;
       const macros=catalogItem?catalogPortionValues(catalogItem,grams):null;
       const confidence=String(item.confidence||'unknown').toLowerCase();
+      const per100=Number.isFinite(Number(item.kcal_100g))&&item.kcal_100g!==null;
+      const estimated=per100?{
+        k:Math.round(Number(item.kcal_100g)*grams/100),
+        p:Math.round(Number(item.protein_100g||0)*grams/100),
+        f:Math.round(Number(item.fat_100g||0)*grams/100),
+        c:Math.round(Number(item.carbs_100g||0)*grams/100)
+      }:null;
       return {
         name:String(catalogItem?.name||item.name||'Продукт').slice(0,100),
         grams,
-        k:macros?macros.k:Math.max(0,Number(item.kcal??item.k)||0),
-        p:macros?macros.p:Math.max(0,Number(item.protein??item.p)||0),
-        f:macros?macros.f:Math.max(0,Number(item.fat??item.f)||0),
-        c:macros?macros.c:Math.max(0,Number(item.carbs??item.c)||0),
+        k:macros?macros.k:(estimated?estimated.k:Math.max(0,Number(item.kcal??item.k)||0)),
+        p:macros?macros.p:(estimated?estimated.p:Math.max(0,Number(item.protein??item.p)||0)),
+        f:macros?macros.f:(estimated?estimated.f:Math.max(0,Number(item.fat??item.f)||0)),
+        c:macros?macros.c:(estimated?estimated.c:Math.max(0,Number(item.carbs??item.c)||0)),
         catalogId:catalogItem?catalogItem.id:null,
         confidence,
-        needsReview:item.needs_review!==false||!catalogItem,
+        needsReview:item.needs_review!==false||!catalogItem||confidence!=='high',
+        reviewReason:String(item.review_reason||'').slice(0,160),
         source:catalogItem?'catalog':'photo'
       };
     });
