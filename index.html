@@ -294,10 +294,11 @@ function renderFoodCatalog(){
   const list=FOOD_CATALOG.filter(item=>(catalogCategory==='Все'||item.category===catalogCategory)&&(!q||normalizeFoodSearch(item.name+' '+item.category).includes(q)));
   $('#foodCatalogList').innerHTML=list.length?list.map(item=>'<button type="button" class="catalog-item '+(selectedCatalogFood&&selectedCatalogFood.id===item.id?'selected':'')+'" data-catalog-id="'+item.id+'"><span class="catalog-item-main"><b>'+esc(item.name)+'</b><small>'+esc(item.category)+' · на 100 г: Б '+fmt(item.p)+' · Ж '+fmt(item.f)+' · У '+fmt(item.c)+' г</small></span><span class="catalog-item-kcal">'+fmt(item.k)+' ккал</span><span class="catalog-item-check">'+(selectedCatalogFood&&selectedCatalogFood.id===item.id?'✓':'')+'</span></button>').join(''):'<div class="catalog-empty">Ничего не найдено. Попробуй другое название.</div>';
 }
+let catalogStartGrams=100;
 function renderCatalogSelection(){
   const host=$('#foodCatalogSelection');
   if(!selectedCatalogFood){host.innerHTML='<div class="catalog-selection-empty">Выбери продукт из списка выше</div>';return}
-  const grams=Math.max(0,Number($('#foodCatalogGrams')?.value)||100);
+  const grams=Math.max(1,Number($('#foodCatalogGrams')?.value)||catalogStartGrams||100);
   const v=catalogPortionValues(selectedCatalogFood,grams);
   host.innerHTML='<div class="catalog-selected-name">'+esc(selectedCatalogFood.name)+'</div><div class="catalog-portion-row"><label for="foodCatalogGrams">Вес порции, г</label><input id="foodCatalogGrams" type="number" min="1" max="10000" value="'+grams+'" inputmode="decimal"></div><div class="catalog-preview">На порцию: <b>'+v.k+' ккал</b> · Белки <b>'+v.p+' г</b> · Жиры <b>'+v.f+' г</b> · Углеводы <b>'+v.c+' г</b></div><button type="button" class="catalog-add-btn" id="addCatalogFood">＋ Добавить в дневник</button>';
   $('#foodCatalogGrams').addEventListener('input',()=>{
@@ -331,11 +332,14 @@ let selectedCatalogFoodNameForNotice='';
 let catalogPendingIndex=null;
 function openFoodPickerForPending(index){
   if(!Number.isInteger(index)||!pendingScanItems[index])return;
+  const grams=Math.max(1,Math.round(Number(pendingScanItems[index].grams)||100));
   openFoodPicker();
+  catalogStartGrams=grams;
   catalogPendingIndex=index;
 }
 function openFoodPicker(){
   catalogPendingIndex=null;
+  catalogStartGrams=100;
   selectedCatalogFood=null;catalogCategory='Все';
   $('#foodCatalogSearch').value='';
   $('#foodCatalogSelection').innerHTML='<div class="catalog-selection-empty">Выбери продукт из списка выше</div>';
