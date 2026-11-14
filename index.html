@@ -467,7 +467,7 @@ async function analyzeFoodPhoto(file){
     if(!Array.isArray(data.items))throw new Error('Сервер не вернул список продуктов.');
     if(!data.items.length)throw new Error('Еда на фото не найдена. Попробуй снимок сверху при хорошем освещении.');
     pendingScanMeal=mealByTime();
-    pendingScanItems=data.items.map(item=>{
+    const detectedItems=data.items.map(item=>{
       const grams=Math.max(1,Number(item.grams)||100);
       const catalogId=Number(item.catalog_id??item.catalogId)||null;
       const catalogItem=catalogId?FOOD_CATALOG.find(product=>product.id===catalogId):null;
@@ -494,8 +494,19 @@ async function analyzeFoodPhoto(file){
         source:catalogItem?'catalog':'photo'
       };
     });
+    const autoItems=detectedItems.filter(item=>item.confidence==='high'&&item.needsReview===false&&item.catalogId);
+    pendingScanItems=detectedItems.filter(item=>!(item.confidence==='high'&&item.needsReview===false&&item.catalogId));
+    if(autoItems.length){
+      const dayKey=today();
+      if(!Array.isArray(D.food[dayKey]))D.food[dayKey]=[];
+      const mealId='meal-'+Date.now();
+      D.meals[mealId]={meal:pendingScanMeal,createdAt:new Date().toISOString(),source:'photo'};
+      autoItems.forEach(item=>D.food[dayKey].push({...item,meal:pendingScanMeal,mealId}));
+      save();renderFood();renderHome();
+    }
     renderScanReview();
-    status.innerHTML='<div class="notice">Распознано '+pendingScanItems.length+' позиций. Проверь список ниже и подтверди добавление.</div>';
+    const message='Автоматически добавлено: '+autoItems.length+'. Требуют проверки: '+pendingScanItems.length+'.';
+    status.innerHTML='<div class="notice">'+message+'</div>';
   }catch(error){
     const message=error&&error.name==='AbortError'?'Сервер не ответил за 90 секунд. Проверь соединение и Cloudflare Worker.':(error&&error.message||'Не удалось распознать фото.');
     status.innerHTML='<div class="notice">'+esc(message)+'</div>';
