@@ -17,6 +17,21 @@ input,select{width:100%;padding:12px;border-radius:13px;border:1px solid var(--l
 .ring{width:190px;height:190px;margin:2px auto 14px;position:relative}.ring svg{transform:rotate(-90deg);width:100%;height:100%}.ring .center{position:absolute;inset:0;display:grid;place-content:center;text-align:center}.ring strong{font-size:30px}
 .foodrow,.historyrow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 0;border-top:1px solid var(--line)}.foodrow:first-child,.historyrow:first-child{border-top:0}
 .food-delete-btn{min-height:34px;padding:6px 10px;border:1px solid #f1d6d3;border-radius:10px;background:#fff5f4;color:#b54740;font-size:12px;font-weight:700;box-shadow:none;flex:0 0 auto}.food-delete-btn:active{background:#ffe9e7}
+.food-edit-btn{min-height:34px;padding:6px 10px;border:1px solid #d8ebee;border-radius:10px;background:#f2fafb;color:#087f8d;font-size:12px;font-weight:750;box-shadow:none;flex:0 0 auto}
+.food-delete-btn{width:34px;height:34px;min-height:34px;padding:0;border:1px solid #f1d6d3;border-radius:10px;background:#fff5f4;color:#b54740;font-size:20px;line-height:1;box-shadow:none;flex:0 0 34px}
+.food-edit-btn:active,.food-delete-btn:active{transform:scale(.96)}
+.food-editor-backdrop{position:fixed;z-index:2000;inset:0;background:#102b3bb8;display:flex;align-items:flex-end;justify-content:center;padding:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom));backdrop-filter:blur(5px)}
+.food-editor-backdrop[hidden]{display:none!important}
+.food-editor{width:min(100%,520px);max-height:92dvh;overflow:auto;background:#fff;border:1px solid #e2edf0;border-radius:26px;padding:20px;box-shadow:0 18px 60px #102b3b35;animation:show .2s ease}
+.food-editor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.food-editor-head h2{font-size:23px;letter-spacing:-.4px;margin:10px 0 3px}
+.food-editor-head p{margin:0}
+.food-editor-close{width:38px;height:38px;min-height:38px;padding:0;border-radius:50%;background:#f1f7f8;color:#526f7a;font-size:24px;box-shadow:none;flex:0 0 38px}
+.food-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px}
+.food-editor input{font-size:16px;font-weight:650;font-variant-numeric:tabular-nums}
+.food-editor-actions{display:grid;grid-template-columns:1fr 1.3fr;gap:10px;margin-top:20px}
+.food-editor-actions button{min-height:50px}
+@media(max-width:370px){.foodrow{gap:5px}.food-edit-btn{padding:5px 7px}.food-editor{padding:16px}}
 .mealimg{width:54px;height:54px;border-radius:14px;background:#e8f6f5;display:grid;place-items:center;font-size:26px;flex:0 0 54px}
 .chart{width:100%;height:175px}.notice{background:#e9f6f7;color:#39717b;padding:12px;border-radius:14px;font-size:13px;margin:10px 0}.hidden{display:none!important}
 @media(min-width:560px){main{padding-top:28px}}
@@ -33,7 +48,21 @@ input,select{width:100%;padding:12px;border-radius:13px;border:1px solid var(--l
 
 <section class="screen" id="water"><h1>Вода</h1><div class="card"><div class="ring"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="82" fill="none" stroke="#e6eff2" stroke-width="15"/><circle id="waterArc" cx="100" cy="100" r="82" fill="none" stroke="#12aaa9" stroke-width="15" stroke-linecap="round" stroke-dasharray="515" stroke-dashoffset="515"/></svg><div class="center"><strong id="waterTotal">0</strong><span class="muted small" id="waterGoal">из 2 500 мл</span></div></div><div class="row"><button data-water="200">+200 мл</button><button data-water="250">+250 мл</button><button data-water="500">+500 мл</button></div><label>Свой объём, мл</label><div class="row"><input id="waterCustom" type="number" placeholder="Например, 300"><button id="waterAdd">Добавить</button></div><button class="secondary" id="waterUndo" style="width:100%;margin-top:10px">Отменить последнюю запись</button></div><h2>Последние дни</h2><div class="card" id="waterHistory"></div></section>
 
-<section class="screen" id="food"><h1>Еда</h1><div class="card"><div class="row"><b style="font-size:24px" id="foodKcal">0 ккал</b><span class="muted small" id="foodRemain" style="text-align:right">осталось 2 200 ккал</span></div><div class="progress"><i id="foodBar" style="width:0%"></i></div><div id="macros"></div><div id="foodMacroGoals"></div></div><div class="row"><button id="takePhoto">📷 Снять еду</button><button class="secondary" id="choosePhoto">🖼 Из галереи</button></div><input class="hidden" type="file" id="photoCamera" accept="image/*" capture="environment"><input class="hidden" type="file" id="photoGallery" accept="image/*"><div id="scanStatus"></div><h2>Дневник за сегодня</h2><div class="card" id="foodDiary"></div></section>
+<section class="screen" id="food"><h1>Еда</h1><div class="card"><div class="row"><b style="font-size:24px" id="foodKcal">0 ккал</b><span class="muted small" id="foodRemain" style="text-align:right">осталось 2 200 ккал</span></div><div class="progress"><i id="foodBar" style="width:0%"></i></div><div id="macros"></div><div id="foodMacroGoals"></div></div><div class="row"><button id="takePhoto">📷 Снять еду</button><button class="secondary" id="choosePhoto">🖼 Из галереи</button></div><input class="hidden" type="file" id="photoCamera" accept="image/*" capture="environment"><input class="hidden" type="file" id="photoGallery" accept="image/*"><div id="scanStatus"></div><h2>Дневник за сегодня</h2><div class="card" id="foodDiary"></div>
+<div class="food-editor-backdrop" id="foodEditor" hidden>
+  <form class="food-editor" id="foodEditorForm">
+    <div class="food-editor-head"><div><span class="pill">ДНЕВНИК ПИТАНИЯ</span><h2>Изменить продукт</h2><p class="muted small">Исправь название, вес и пищевую ценность.</p></div><button type="button" class="food-editor-close" id="foodEditorClose" aria-label="Закрыть">×</button></div>
+    <label for="editFoodName">Название продукта</label><input id="editFoodName" maxlength="100" required placeholder="Например, куриная грудка">
+    <div class="food-editor-grid">
+      <div><label for="editFoodGrams">Вес, г</label><input id="editFoodGrams" type="number" min="0" max="10000" step="1" required inputmode="decimal"></div>
+      <div><label for="editFoodKcal">Калории, ккал</label><input id="editFoodKcal" type="number" min="0" max="20000" step="1" required inputmode="decimal"></div>
+      <div><label for="editFoodProtein">Белки, г</label><input id="editFoodProtein" type="number" min="0" max="2000" step="1" required inputmode="decimal"></div>
+      <div><label for="editFoodFat">Жиры, г</label><input id="editFoodFat" type="number" min="0" max="2000" step="1" required inputmode="decimal"></div>
+      <div><label for="editFoodCarbs">Углеводы, г</label><input id="editFoodCarbs" type="number" min="0" max="2000" step="1" required inputmode="decimal"></div>
+    </div>
+    <div class="food-editor-actions"><button type="button" class="secondary" id="foodEditorCancel">Отмена</button><button type="submit">Сохранить</button></div>
+  </form>
+</div></section>
 
 <section class="screen" id="weight"><h1>Вес</h1><div class="card"><div class="row"><div><div class="muted small">Последний вес</div><b style="font-size:28px" id="weightCurrent">— кг</b></div><div style="text-align:right"><div class="muted small">Цель</div><b style="font-size:22px" id="weightTarget">82 кг</b></div></div><div class="progress"><i id="weightProgress" style="width:0%"></i></div></div><div class="card"><h3>Записать вес</h3><label>Вес, кг</label><input id="weightInput" type="number" step=".1" placeholder="Например, 90.5"><label>Дата</label><input id="weightDate" type="date"><button id="weightSave" style="width:100%;margin-top:12px">Сохранить запись</button></div><h2>Динамика</h2><div class="card"><svg id="weightChart" class="chart" viewBox="0 0 320 175"></svg><div id="weightHistory"></div></div></section>
 
@@ -106,8 +135,26 @@ function addWater(n){if(!n||n<1)return;(D.water[today()]??=[]).push(Math.round(n
 $$('[data-water]').forEach(b=>b.onclick=()=>addWater(+b.dataset.water));$('#waterAdd').onclick=()=>{addWater(+$('#waterCustom').value);$('#waterCustom').value=''};$('#waterUndo').onclick=()=>{D.water[today()]?.pop();save();renderWater();renderHome()};
 function totals(){return (D.food[today()]||[]).reduce((a,x)=>({k:a.k+x.k,p:a.p+x.p,f:a.f+x.f,c:a.c+x.c}),{k:0,p:0,f:0,c:0})}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function renderFood(){let t=totals(),g=D.settings.kcal;$('#foodKcal').textContent=fmt(t.k)+' ккал';$('#foodRemain').textContent=(g-t.k>=0?'осталось ':'сверх цели ')+fmt(Math.abs(g-t.k))+' ккал';$('#foodBar').style.width=Math.min(100,t.k/g*100)+'%';$('#macros').innerHTML=macroMarkup(t);$('#foodMacroGoals').innerHTML=macroGoalsMarkup(t);const items=D.food[today()]||[],groups=[];items.forEach((x,i)=>{let key=x.mealId||('single-'+i),group=groups.find(z=>z.key===key);if(!group){group={key,meal:x.meal||'Приём пищи',items:[]};groups.push(group)}group.items.push({...x,_index:i})});$('#foodDiary').innerHTML=groups.length?groups.map(group=>{let sum=group.items.reduce((a,x)=>({k:a.k+(+x.k||0),p:a.p+(+x.p||0),f:a.f+(+x.f||0),c:a.c+(+x.c||0)}),{k:0,p:0,f:0,c:0});const rows=group.items.map(x=>'<div class="foodrow"><div style="min-width:0;flex:1"><b>'+esc(x.name)+'</b><div class="muted small">'+fmt(x.grams||0)+' г · Б '+fmt(x.p||0)+' · Ж '+fmt(x.f||0)+' · У '+fmt(x.c||0)+' г</div></div><div style="display:flex;align-items:center;gap:8px;flex:0 0 auto"><b style="white-space:nowrap">'+fmt(x.k||0)+' ккал</b><button type="button" class="food-delete-btn" data-food-delete="'+x._index+'" aria-label="Удалить '+esc(x.name)+'">Удалить</button></div></div>').join('');return '<article class="meal-card"><div class="meal-head"><b>'+esc(group.meal)+'</b><div class="meal-total">'+fmt(sum.k)+' ккал</div></div>'+rows+'<div class="muted small" style="margin-top:8px">Итого: Б '+fmt(sum.p)+' г · Ж '+fmt(sum.f)+' г · У '+fmt(sum.c)+' г</div></article>'}).join(''):'<div class="muted">Пока пусто. Сфотографируй еду — распознанные продукты автоматически появятся здесь.</div>'}
+function renderFood(){let t=totals(),g=D.settings.kcal;$('#foodKcal').textContent=fmt(t.k)+' ккал';$('#foodRemain').textContent=(g-t.k>=0?'осталось ':'сверх цели ')+fmt(Math.abs(g-t.k))+' ккал';$('#foodBar').style.width=Math.min(100,t.k/g*100)+'%';$('#macros').innerHTML=macroMarkup(t);$('#foodMacroGoals').innerHTML=macroGoalsMarkup(t);const items=D.food[today()]||[],groups=[];items.forEach((x,i)=>{let key=x.mealId||('single-'+i),group=groups.find(z=>z.key===key);if(!group){group={key,meal:x.meal||'Приём пищи',items:[]};groups.push(group)}group.items.push({...x,_index:i})});$('#foodDiary').innerHTML=groups.length?groups.map(group=>{let sum=group.items.reduce((a,x)=>({k:a.k+(+x.k||0),p:a.p+(+x.p||0),f:a.f+(+x.f||0),c:a.c+(+x.c||0)}),{k:0,p:0,f:0,c:0});const rows=group.items.map(x=>'<div class="foodrow"><div style="min-width:0;flex:1"><b>'+esc(x.name)+'</b><div class="muted small">'+fmt(x.grams||0)+' г · Б '+fmt(x.p||0)+' · Ж '+fmt(x.f||0)+' · У '+fmt(x.c||0)+' г</div></div><div style="display:flex;align-items:center;gap:8px;flex:0 0 auto"><b style="white-space:nowrap">'+fmt(x.k||0)+' ккал</b><button type="button" class="food-edit-btn" data-food-edit="'+x._index+'" aria-label="Изменить '+esc(x.name)+'">Изменить</button><button type="button" class="food-delete-btn" data-food-delete="'+x._index+'" aria-label="Удалить '+esc(x.name)+'" title="Удалить продукт">×</button></div></div>').join('');return '<article class="meal-card"><div class="meal-head"><b>'+esc(group.meal)+'</b><div class="meal-total">'+fmt(sum.k)+' ккал</div></div>'+rows+'<div class="muted small" style="margin-top:8px">Итого: Б '+fmt(sum.p)+' г · Ж '+fmt(sum.f)+' г · У '+fmt(sum.c)+' г</div></article>'}).join(''):'<div class="muted">Пока пусто. Сфотографируй еду — распознанные продукты автоматически появятся здесь.</div>'}
+let editingFoodIndex=null;
+function closeFoodEditor(){editingFoodIndex=null;$('#foodEditor').hidden=true;document.body.style.overflow=''}
+function openFoodEditor(index){
+  const item=(D.food[today()]||[])[index];
+  if(!item) return;
+  editingFoodIndex=index;
+  $('#editFoodName').value=item.name||'';
+  $('#editFoodGrams').value=fmt(item.grams);
+  $('#editFoodKcal').value=fmt(item.k);
+  $('#editFoodProtein').value=fmt(item.p);
+  $('#editFoodFat').value=fmt(item.f);
+  $('#editFoodCarbs').value=fmt(item.c);
+  $('#foodEditor').hidden=false;
+  document.body.style.overflow='hidden';
+  setTimeout(()=>$('#editFoodName').focus(),80);
+}
 $('#foodDiary').addEventListener('click',e=>{
+  const edit=e.target.closest('[data-food-edit]');
+  if(edit){openFoodEditor(Number(edit.dataset.foodEdit));return}
   const button=e.target.closest('[data-food-delete]');
   if(!button) return;
   const index=Number(button.dataset.foodDelete);
@@ -120,6 +167,24 @@ $('#foodDiary').addEventListener('click',e=>{
   renderFood();
   renderHome();
 });
+$('#foodEditorClose').addEventListener('click',closeFoodEditor);
+$('#foodEditorCancel').addEventListener('click',closeFoodEditor);
+$('#foodEditor').addEventListener('click',e=>{if(e.target===$('#foodEditor'))closeFoodEditor()});
+$('#foodEditorForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const list=D.food[today()]||[];
+  if(editingFoodIndex===null||!list[editingFoodIndex]){closeFoodEditor();return}
+  const value=id=>Math.max(0,Number($('#'+id).value)||0);
+  const name=$('#editFoodName').value.trim();
+  if(!name){$('#editFoodName').focus();return}
+  list[editingFoodIndex]={...list[editingFoodIndex],name,grams:value('editFoodGrams'),k:value('editFoodKcal'),p:value('editFoodProtein'),f:value('editFoodFat'),c:value('editFoodCarbs')};
+  save();
+  closeFoodEditor();
+  renderFood();
+  renderHome();
+  $('#scanStatus').innerHTML='<div class="notice">Изменения продукта сохранены.</div>';
+});
+
 function macroGoalsMarkup(t){const goals=[['Белки',t.p,D.settings.p||160],['Жиры',t.f,D.settings.f||70],['Углеводы',t.c,D.settings.c||232]];return '<div class="macro-goals">'+goals.map(([name,value,target])=>'<div class="macro-goal"><small>'+name+'</small><b>'+fmt(value)+' / '+fmt(target)+' г · осталось '+fmt(Math.max(0,target-value))+' г</b><div class="progress"><i style="width:'+Math.min(100,value/Math.max(1,target)*100)+'%"></i></div></div>').join('')+'</div>'}
 function addFood(x){(D.food[today()]??=[]).push(x);save();renderFood();renderHome()}
 function mealByTime(){let h=new Date().getHours();return h<11?'Завтрак':h<16?'Обед':h<22?'Ужин':'Перекус'}
