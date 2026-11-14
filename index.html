@@ -176,8 +176,10 @@ async function analyzeFoodPhoto(file){
     const mealId='meal-'+Date.now();
     const meal=mealByTime();
     D.meals[mealId]={meal,createdAt:new Date().toISOString()};
+    const dayKey=today();
+    if(!Array.isArray(D.food[dayKey])) D.food[dayKey]=[];
     data.items.forEach(item=>{
-      D.food[today()].push({
+      D.food[dayKey].push({
         name:String(item.name||'Продукт').slice(0,100),
         grams:Math.max(0,Number(item.grams)||0),
         k:Math.max(0,Number(item.kcal)||0),
