@@ -21,7 +21,7 @@ The folder ID and model URI are already set in `worker.js`. Do not put the API k
 
 ## Deploy
 
-The Cloudflare account is not connected to this GitHub repository through an automatic deployment integration. To publish the server change:
+This repository does not include an automatic Cloudflare deployment workflow. If the existing Worker is connected to a separate Cloudflare Git integration, use that configured deployment flow. Otherwise, publish the server change from the Cloudflare dashboard:
 
 1. Open Cloudflare Dashboard → Workers & Pages → `vodaeda-api`.
 2. Open **Edit code**.
