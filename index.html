@@ -18,6 +18,24 @@ input,select{width:100%;padding:12px;border-radius:13px;border:1px solid var(--l
 .foodrow,.historyrow{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 0;border-top:1px solid var(--line)}.foodrow:first-child,.historyrow:first-child{border-top:0}
 .food-delete-btn{min-height:34px;padding:6px 10px;border:1px solid #f1d6d3;border-radius:10px;background:#fff5f4;color:#b54740;font-size:12px;font-weight:700;box-shadow:none;flex:0 0 auto}.food-delete-btn:active{background:#ffe9e7}
 .food-edit-btn{min-height:34px;padding:6px 10px;border:1px solid #d8ebee;border-radius:10px;background:#f2fafb;color:#087f8d;font-size:12px;font-weight:750;box-shadow:none;flex:0 0 auto}
+.scan-review-card{border:1px solid #dbe9ec;border-radius:20px;background:#fff;padding:14px;margin:12px 0;box-shadow:var(--shadow)}
+.scan-review-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px}
+.scan-review-head h3{font-size:17px;margin:0 0 3px}
+.scan-review-item{padding:12px 0;border-top:1px solid #edf2f4}
+.scan-review-item:first-child{border-top:0}
+.scan-review-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.scan-review-item-top b{font-size:15px}
+.scan-review-tag{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:20px;background:#fff4dd;color:#8b5c13;font-size:10px;font-weight:800;white-space:nowrap}
+.scan-review-tag.ok{background:#e8f7ef;color:#24744e}
+.scan-review-meta{color:var(--muted);font-size:12px;margin-top:4px;line-height:1.45}
+.scan-review-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.scan-review-actions button{min-height:35px;padding:6px 10px;border-radius:10px;font-size:12px}
+.scan-review-edit{background:#eff8f9;color:#087f8d;border:1px solid #d8ebee;box-shadow:none}
+.scan-review-db{background:#f6f8fb;color:#526a75;border:1px solid #e1e9ed;box-shadow:none}
+.scan-review-remove{background:#fff4f3;color:#b54740;border:1px solid #f1d6d3;box-shadow:none}
+.scan-review-footer{border-top:1px solid #edf2f4;padding-top:12px;margin-top:6px}
+.scan-review-footer button{width:100%}
+.scan-review-hint{font-size:12px;color:var(--muted);line-height:1.45;margin:6px 0 11px}
 
 .catalog-open-btn{width:100%;display:flex;align-items:center;gap:12px;text-align:left;margin:8px 0 4px;padding:13px 15px;min-height:64px;border:1px solid #d8e9ed;border-radius:18px;background:linear-gradient(120deg,#fff,#f5fbfc);color:var(--ink);box-shadow:0 5px 16px #17475b08}
 .catalog-plus{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:#e3f6f5;color:#078e9c;font-size:24px;line-height:1;flex:0 0 36px}
@@ -92,7 +110,7 @@ input,select{width:100%;padding:12px;border-radius:13px;border:1px solid var(--l
 
 <section class="screen" id="water"><h1>Вода</h1><div class="card"><div class="ring"><svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="82" fill="none" stroke="#e6eff2" stroke-width="15"/><circle id="waterArc" cx="100" cy="100" r="82" fill="none" stroke="#12aaa9" stroke-width="15" stroke-linecap="round" stroke-dasharray="515" stroke-dashoffset="515"/></svg><div class="center"><strong id="waterTotal">0</strong><span class="muted small" id="waterGoal">из 2 500 мл</span></div></div><div class="row"><button data-water="200">+200 мл</button><button data-water="250">+250 мл</button><button data-water="500">+500 мл</button></div><label>Свой объём, мл</label><div class="row"><input id="waterCustom" type="number" placeholder="Например, 300"><button id="waterAdd">Добавить</button></div><button class="secondary" id="waterUndo" style="width:100%;margin-top:10px">Отменить последнюю запись</button></div><h2>Последние дни</h2><div class="card" id="waterHistory"></div></section>
 
-<section class="screen" id="food"><h1>Еда</h1><div class="card"><div class="row"><b style="font-size:24px" id="foodKcal">0 ккал</b><span class="muted small" id="foodRemain" style="text-align:right">осталось 2 200 ккал</span></div><div class="progress"><i id="foodBar" style="width:0%"></i></div><div id="macros"></div><div id="foodMacroGoals"></div></div><div class="row"><button id="takePhoto">📷 Снять еду</button><button class="secondary" id="choosePhoto">🖼 Из галереи</button></div><button type="button" class="catalog-open-btn" id="openFoodPicker"><span class="catalog-plus">＋</span><span><b>Выбрать продукт</b><small>Добавить вручную из базы продуктов</small></span><span class="catalog-arrow">›</span></button><input class="hidden" type="file" id="photoCamera" accept="image/*" capture="environment"><input class="hidden" type="file" id="photoGallery" accept="image/*"><div id="scanStatus"></div><h2>Дневник за сегодня</h2><div class="card" id="foodDiary"></div>
+<section class="screen" id="food"><h1>Еда</h1><div class="card"><div class="row"><b style="font-size:24px" id="foodKcal">0 ккал</b><span class="muted small" id="foodRemain" style="text-align:right">осталось 2 200 ккал</span></div><div class="progress"><i id="foodBar" style="width:0%"></i></div><div id="macros"></div><div id="foodMacroGoals"></div></div><div class="row"><button id="takePhoto">📷 Снять еду</button><button class="secondary" id="choosePhoto">🖼 Из галереи</button></div><button type="button" class="catalog-open-btn" id="openFoodPicker"><span class="catalog-plus">＋</span><span><b>Выбрать продукт</b><small>Добавить вручную из базы продуктов</small></span><span class="catalog-arrow">›</span></button><input class="hidden" type="file" id="photoCamera" accept="image/*" capture="environment"><input class="hidden" type="file" id="photoGallery" accept="image/*"><div id="scanStatus"></div><div id="scanReview"></div><h2>Дневник за сегодня</h2><div class="card" id="foodDiary"></div>
 <div class="food-editor-backdrop" id="foodEditor" hidden>
   <form class="food-editor" id="foodEditorForm">
     <div class="food-editor-head"><div><span class="pill">ДНЕВНИК ПИТАНИЯ</span><h2>Изменить продукт</h2><p class="muted small">Исправь название, вес и пищевую ценность.</p></div><button type="button" class="food-editor-close" id="foodEditorClose" aria-label="Закрыть">×</button></div>
@@ -198,11 +216,15 @@ function totals(){return (D.food[today()]||[]).reduce((a,x)=>({k:a.k+x.k,p:a.p+x
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderFood(){let t=totals(),g=D.settings.kcal;$('#foodKcal').textContent=fmt(t.k)+' ккал';$('#foodRemain').textContent=(g-t.k>=0?'осталось ':'сверх цели ')+fmt(Math.abs(g-t.k))+' ккал';$('#foodBar').style.width=Math.min(100,t.k/g*100)+'%';$('#macros').innerHTML=macroMarkup(t);$('#foodMacroGoals').innerHTML=macroGoalsMarkup(t);const items=D.food[today()]||[],groups=[];items.forEach((x,i)=>{let key=x.mealId||('single-'+i),group=groups.find(z=>z.key===key);if(!group){group={key,meal:x.meal||'Приём пищи',items:[]};groups.push(group)}group.items.push({...x,_index:i})});$('#foodDiary').innerHTML=groups.length?groups.map(group=>{let sum=group.items.reduce((a,x)=>({k:a.k+(+x.k||0),p:a.p+(+x.p||0),f:a.f+(+x.f||0),c:a.c+(+x.c||0)}),{k:0,p:0,f:0,c:0});const rows=group.items.map(x=>'<div class="foodrow"><div style="min-width:0;flex:1"><b>'+esc(x.name)+'</b><div class="muted small">'+fmt(x.grams||0)+' г · Б '+fmt(x.p||0)+' · Ж '+fmt(x.f||0)+' · У '+fmt(x.c||0)+' г</div></div><div style="display:flex;align-items:center;gap:8px;flex:0 0 auto"><b style="white-space:nowrap">'+fmt(x.k||0)+' ккал</b><button type="button" class="food-edit-btn" data-food-edit="'+x._index+'" aria-label="Изменить '+esc(x.name)+'">Изменить</button><button type="button" class="food-delete-btn" data-food-delete="'+x._index+'" aria-label="Удалить '+esc(x.name)+'" title="Удалить продукт">×</button></div></div>').join('');return '<article class="meal-card"><div class="meal-head"><b>'+esc(group.meal)+'</b><div class="meal-total">'+fmt(sum.k)+' ккал</div></div>'+rows+'<div class="muted small" style="margin-top:8px">Итого: Б '+fmt(sum.p)+' г · Ж '+fmt(sum.f)+' г · У '+fmt(sum.c)+' г</div></article>'}).join(''):'<div class="muted">Пока пусто. Сфотографируй еду — распознанные продукты автоматически появятся здесь.</div>'}
 let editingFoodIndex=null;
-function closeFoodEditor(){editingFoodIndex=null;$('#foodEditor').hidden=true;document.body.style.overflow=''}
-function openFoodEditor(index){
-  const item=(D.food[today()]||[])[index];
+let editingFoodTarget='diary';
+let pendingScanItems=[];
+let pendingScanMeal=null;
+function closeFoodEditor(){editingFoodIndex=null;editingFoodTarget='diary';$('#foodEditor').hidden=true;document.body.style.overflow=''}
+function openFoodEditor(index,target='diary'){
+  const item=target==='pending'?pendingScanItems[index]:(D.food[today()]||[])[index];
   if(!item) return;
   editingFoodIndex=index;
+  editingFoodTarget=target;
   $('#editFoodName').value=item.name||'';
   $('#editFoodGrams').value=fmt(item.grams);
   $('#editFoodKcal').value=fmt(item.k);
@@ -234,11 +256,20 @@ $('#foodEditor').addEventListener('click',e=>{if(e.target===$('#foodEditor'))clo
 $('#foodEditorForm').addEventListener('submit',e=>{
   e.preventDefault();
   const list=D.food[today()]||[];
-  if(editingFoodIndex===null||!list[editingFoodIndex]){closeFoodEditor();return}
+  if(editingFoodIndex===null){closeFoodEditor();return}
   const value=id=>Math.max(0,Number($('#'+id).value)||0);
   const name=$('#editFoodName').value.trim();
   if(!name){$('#editFoodName').focus();return}
-  list[editingFoodIndex]={...list[editingFoodIndex],name,grams:value('editFoodGrams'),k:value('editFoodKcal'),p:value('editFoodProtein'),f:value('editFoodFat'),c:value('editFoodCarbs')};
+  const updated={name,grams:value('editFoodGrams'),k:value('editFoodKcal'),p:value('editFoodProtein'),f:value('editFoodFat'),c:value('editFoodCarbs')};
+  if(editingFoodTarget==='pending'){
+    if(!pendingScanItems[editingFoodIndex]){closeFoodEditor();return}
+    pendingScanItems[editingFoodIndex]={...pendingScanItems[editingFoodIndex],...updated,needsReview:true,source:'manual'};
+    closeFoodEditor();
+    renderScanReview();
+    return;
+  }
+  if(!list[editingFoodIndex]){closeFoodEditor();return}
+  list[editingFoodIndex]={...list[editingFoodIndex],...updated};
   save();
   closeFoodEditor();
   renderFood();
@@ -278,15 +309,31 @@ function renderCatalogSelection(){
     const gramsNow=Math.round(Number($('#foodCatalogGrams').value)||0);
     if(gramsNow<1||gramsNow>10000){$('#foodCatalogGrams').focus();return}
     const values=catalogPortionValues(selectedCatalogFood,gramsNow);
+    const chosen=selectedCatalogFood;
+    const chosenName=chosen.name;
     const meal=mealByTime();
-    addFood({name:selectedCatalogFood.name,grams:gramsNow,k:values.k,p:values.p,f:values.f,c:values.c,meal,source:'catalog'});
+    if(catalogPendingIndex!==null && pendingScanItems[catalogPendingIndex]){
+      const old=pendingScanItems[catalogPendingIndex];
+      pendingScanItems[catalogPendingIndex]={...old,name:chosen.name,grams:gramsNow,k:values.k,p:values.p,f:values.f,c:values.c,catalogId:chosen.id,confidence:'high',needsReview:false,source:'catalog'};
+      catalogPendingIndex=null;
+      renderScanReview();
+      $('#scanStatus').innerHTML='<div class="notice">Продукт заменён записью из базы.</div>';
+    } else {
+      addFood({name:chosen.name,grams:gramsNow,k:values.k,p:values.p,f:values.f,c:values.c,meal,source:'catalog'});
+      $('#scanStatus').innerHTML='<div class="notice">«'+esc(chosenName)+'» добавлено в дневник.</div>';
+    }
     if($('#foodPicker').dataset.previousOverflow!==undefined) document.body.style.overflow=$('#foodPicker').dataset.previousOverflow;
     $('#foodPicker').hidden=true;
     selectedCatalogFood=null;
-    $('#scanStatus').innerHTML='<div class="notice">«'+esc(values.k>=0?selectedCatalogFoodNameForNotice:'')+'» добавлено в дневник.</div>';
   });
 }
 let selectedCatalogFoodNameForNotice='';
+let catalogPendingIndex=null;
+function openFoodPickerForPending(index){
+  if(!Number.isInteger(index)||!pendingScanItems[index])return;
+  catalogPendingIndex=index;
+  openFoodPicker();
+}
 function openFoodPicker(){
   selectedCatalogFood=null;catalogCategory='Все';
   $('#foodCatalogSearch').value='';
@@ -321,100 +368,127 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#foodPicker').h
 $('#takePhoto').addEventListener('click',()=>$('#photoCamera').click());
 $('#choosePhoto').addEventListener('click',()=>$('#photoGallery').click());
 let foodScanBusy=false;
+function renderScanReview(){
+  const host=$('#scanReview');
+  if(!pendingScanItems.length){host.innerHTML='';return}
+  const items=pendingScanItems.map((item,index)=>{
+    const level=String(item.confidence||'unknown').toLowerCase();
+    const verified=level==='high' && item.needsReview===false && Number(item.catalogId)>0;
+    const tag=verified?'<span class="scan-review-tag ok">✓ Сопоставлено с базой</span>':'<span class="scan-review-tag">Проверь продукт</span>';
+    return '<div class="scan-review-item"><div class="scan-review-item-top"><b>'+esc(item.name)+'</b>'+tag+'</div><div class="scan-review-meta">'+fmt(item.grams)+' г · '+fmt(item.k)+' ккал · Б '+fmt(item.p)+' г · Ж '+fmt(item.f)+' г · У '+fmt(item.c)+' г</div><div class="scan-review-actions"><button type="button" class="scan-review-edit" data-pending-edit="'+index+'">Изменить</button><button type="button" class="scan-review-db" data-pending-db="'+index+'">Выбрать из базы</button><button type="button" class="scan-review-remove" data-pending-remove="'+index+'">Убрать</button></div></div>';
+  }).join('');
+  const unverified=pendingScanItems.filter(item=>!(String(item.confidence||'').toLowerCase()==='high'&&item.needsReview===false&&Number(item.catalogId)>0)).length;
+  host.innerHTML='<section class="scan-review-card"><div class="scan-review-head"><div><h3>Проверь распознанные продукты</h3><div class="muted small">Найдено: '+pendingScanItems.length+'</div></div><span class="pill">Черновик</span></div>'+items+'<div class="scan-review-footer"><div class="scan-review-hint">'+(unverified?'Нужно проверить '+unverified+' позиций. Старый формат ответа сервера не передаёт уверенность, поэтому такие продукты не считаются подтверждёнными.':'Все продукты сопоставлены с базой. Всё равно проверь порции.')+'</div><button type="button" id="confirmScanItems">Добавить в дневник · '+pendingScanItems.length+'</button></div></section>';
+  $('#confirmScanItems').addEventListener('click',commitPendingScan);
+}
+function commitPendingScan(){
+  if(!pendingScanItems.length)return;
+  const dayKey=today();
+  if(!Array.isArray(D.food[dayKey]))D.food[dayKey]=[];
+  const meal=pendingScanMeal||mealByTime();
+  const mealId='meal-'+Date.now();
+  D.meals[mealId]={meal,createdAt:new Date().toISOString(),source:'photo'};
+  pendingScanItems.forEach(item=>D.food[dayKey].push({
+    name:String(item.name||'Продукт').slice(0,100),
+    grams:Math.max(0,Number(item.grams)||0),
+    k:Math.max(0,Number(item.k)||0),
+    p:Math.max(0,Number(item.p)||0),
+    f:Math.max(0,Number(item.f)||0),
+    c:Math.max(0,Number(item.c)||0),
+    meal,mealId,source:item.source||'photo',
+    catalogId:item.catalogId||null,
+    confidence:item.confidence||'unknown'
+  }));
+  const count=pendingScanItems.length;
+  pendingScanItems=[];
+  pendingScanMeal=null;
+  save();renderFood();renderHome();renderScanReview();
+  $('#scanStatus').innerHTML='<div class="notice">Добавлено в дневник: '+count+' продуктов.</div>';
+}
+$('#scanReview').addEventListener('click',e=>{
+  const edit=e.target.closest('[data-pending-edit]');
+  if(edit){openFoodEditor(Number(edit.dataset.pendingEdit),'pending');return}
+  const dbButton=e.target.closest('[data-pending-db]');
+  if(dbButton){openFoodPickerForPending(Number(dbButton.dataset.pendingDb));return}
+  const remove=e.target.closest('[data-pending-remove]');
+  if(remove){
+    const index=Number(remove.dataset.pendingRemove);
+    if(Number.isInteger(index)&&index>=0&&index<pendingScanItems.length){pendingScanItems.splice(index,1);renderScanReview()}
+  }
+});
 async function analyzeFoodPhoto(file){
   if(!file || foodScanBusy) return;
   foodScanBusy=true;
   const cameraButton=$('#takePhoto'),galleryButton=$('#choosePhoto'),status=$('#scanStatus');
-  cameraButton.disabled=true;
-  galleryButton.disabled=true;
+  cameraButton.disabled=true;galleryButton.disabled=true;
   status.innerHTML='<div class="notice">Подготавливаю фотографию…</div>';
-  let objectUrl='';
-  let controller=null;
-  let timeoutId=null;
-  try {
-    const type=String(file.type||'').toLowerCase();
-    if(!type.startsWith('image/')) throw new Error('Выбери файл изображения.');
+  let objectUrl='',controller=null,timeoutId=null;
+  try{
+    if(!String(file.type||'').toLowerCase().startsWith('image/'))throw new Error('Выбери файл изображения.');
     const imageDataUrl=await new Promise((resolve,reject)=>{
-      const image=new Image();
-      objectUrl=URL.createObjectURL(file);
+      const image=new Image();objectUrl=URL.createObjectURL(file);
       image.onload=()=>{
-        try {
+        try{
           const canvas=document.createElement('canvas');
           const scale=Math.min(1,1200/Math.max(image.naturalWidth,image.naturalHeight));
           canvas.width=Math.max(1,Math.round(image.naturalWidth*scale));
           canvas.height=Math.max(1,Math.round(image.naturalHeight*scale));
           const context=canvas.getContext('2d');
-          if(!context) throw new Error('Не удалось подготовить фотографию.');
+          if(!context)throw new Error('Не удалось подготовить фотографию.');
           context.drawImage(image,0,0,canvas.width,canvas.height);
           resolve(canvas.toDataURL('image/jpeg',0.78));
-        } catch(error) { reject(error); }
-        finally { if(objectUrl) URL.revokeObjectURL(objectUrl); objectUrl=''; }
+        }catch(error){reject(error)}
+        finally{if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl=''}
       };
-      image.onerror=()=>{
-        if(objectUrl) URL.revokeObjectURL(objectUrl);
-        objectUrl='';
-        reject(new Error('iPhone не смог открыть выбранную фотографию. Попробуй другой снимок.'));
-      };
+      image.onerror=()=>{if(objectUrl)URL.revokeObjectURL(objectUrl);objectUrl='';reject(new Error('Не удалось открыть фотографию.'))};
       image.src=objectUrl;
     });
-
-    status.innerHTML='<div class="notice">Распознаю фото и считаю калории и БЖУ…</div>';
-    controller=new AbortController();
-    timeoutId=setTimeout(()=>controller.abort(),90000);
+    status.innerHTML='<div class="notice">Распознаю продукты. Это может занять несколько секунд…</div>';
+    controller=new AbortController();timeoutId=setTimeout(()=>controller.abort(),90000);
     const response=await fetch('https://vodaeda-api.ra000az.workers.dev/analyze',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({imageDataUrl}),
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({imageDataUrl,foodCatalog:FOOD_CATALOG.map(item=>({id:item.id,name:item.name,category:item.category}))}),
       signal:controller.signal
     });
-    const raw=await response.text();
-    let data;
-    try { data=JSON.parse(raw); }
-    catch { throw new Error(response.ok?'Сервер вернул ответ в неизвестном формате.':'Ошибка сервера ('+response.status+').'); }
-
-    if(!response.ok) {
+    const raw=await response.text();let data;
+    try{data=JSON.parse(raw)}catch{throw new Error(response.ok?'Сервер вернул ответ в неизвестном формате.':'Ошибка сервера ('+response.status+').')}
+    if(!response.ok){
       const detail=String(data.error||data.message||data.details||'');
-      if(response.status===429 || detail.toLowerCase().includes('quota') || detail.toLowerCase().includes('exceed') || detail.toLowerCase().includes('resource_exhausted')) {
-        throw new Error('Сервис распознавания отклонил запрос из-за превышения квоты Yandex Cloud. Приложение работает, но нужно восстановить лимит API.');
-      }
-      throw new Error(detail || ('Ошибка сервера ('+response.status+').'));
+      if(response.status===429||/quota|exceed|resource_exhausted/i.test(detail))throw new Error('Yandex Cloud сообщил о превышении квоты. Фото не добавлено в дневник.');
+      throw new Error(detail||'Ошибка сервера ('+response.status+').');
     }
-    if(!Array.isArray(data.items)) throw new Error('Сервер не вернул список распознанных продуктов.');
-    if(!data.items.length) throw new Error('Еда на фотографии не распознана. Попробуй снимок сверху, при хорошем освещении.');
-
-    const mealId='meal-'+Date.now();
-    const meal=mealByTime();
-    D.meals[mealId]={meal,createdAt:new Date().toISOString()};
-    const dayKey=today();
-    if(!Array.isArray(D.food[dayKey])) D.food[dayKey]=[];
-    data.items.forEach(item=>{
-      D.food[dayKey].push({
-        name:String(item.name||'Продукт').slice(0,100),
-        grams:Math.max(0,Number(item.grams)||0),
-        k:Math.max(0,Number(item.kcal)||0),
-        p:Math.max(0,Number(item.protein)||0),
-        f:Math.max(0,Number(item.fat)||0),
-        c:Math.max(0,Number(item.carbs)||0),
-        meal,
-        mealId
-      });
+    if(!Array.isArray(data.items))throw new Error('Сервер не вернул список продуктов.');
+    if(!data.items.length)throw new Error('Еда на фото не найдена. Попробуй снимок сверху при хорошем освещении.');
+    pendingScanMeal=mealByTime();
+    pendingScanItems=data.items.map(item=>{
+      const grams=Math.max(1,Number(item.grams)||100);
+      const catalogId=Number(item.catalog_id??item.catalogId)||null;
+      const catalogItem=catalogId?FOOD_CATALOG.find(product=>product.id===catalogId):null;
+      const macros=catalogItem?catalogPortionValues(catalogItem,grams):null;
+      const confidence=String(item.confidence||'unknown').toLowerCase();
+      return {
+        name:String(catalogItem?.name||item.name||'Продукт').slice(0,100),
+        grams,
+        k:macros?macros.k:Math.max(0,Number(item.kcal??item.k)||0),
+        p:macros?macros.p:Math.max(0,Number(item.protein??item.p)||0),
+        f:macros?macros.f:Math.max(0,Number(item.fat??item.f)||0),
+        c:macros?macros.c:Math.max(0,Number(item.carbs??item.c)||0),
+        catalogId:catalogItem?catalogItem.id:null,
+        confidence,
+        needsReview:item.needs_review!==false||!catalogItem,
+        source:catalogItem?'catalog':'photo'
+      };
     });
-    save();
-    renderFood();
-    renderHome();
-    status.innerHTML='<div class="notice">Готово! '+data.items.length+' продуктов добавлено в дневник автоматически.</div>';
-  } catch(error) {
-    const message=error && error.name==='AbortError'
-      ? 'Сервер не ответил за 90 секунд. Попробуй ещё раз; если повторится, нужно проверить Cloudflare Worker и Yandex Cloud.'
-      : (error && error.message ? error.message : 'Не удалось обработать фотографию. Попробуй ещё раз.');
+    renderScanReview();
+    status.innerHTML='<div class="notice">Распознано '+pendingScanItems.length+' позиций. Проверь список ниже и подтверди добавление.</div>';
+  }catch(error){
+    const message=error&&error.name==='AbortError'?'Сервер не ответил за 90 секунд. Проверь соединение и Cloudflare Worker.':(error&&error.message||'Не удалось распознать фото.');
     status.innerHTML='<div class="notice">'+esc(message)+'</div>';
-  } finally {
-    if(timeoutId) clearTimeout(timeoutId);
-    if(controller) controller.abort();
-    if(objectUrl) URL.revokeObjectURL(objectUrl);
-    cameraButton.disabled=false;
-    galleryButton.disabled=false;
-    foodScanBusy=false;
+  }finally{
+    if(timeoutId)clearTimeout(timeoutId);
+    if(controller)controller.abort();
+    if(objectUrl)URL.revokeObjectURL(objectUrl);
+    cameraButton.disabled=false;galleryButton.disabled=false;foodScanBusy=false;
   }
 }
 $('#photoCamera').addEventListener('change',e=>{
